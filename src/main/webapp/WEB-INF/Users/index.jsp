@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Belt Exam</title>
+    <title>Disqord</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
     <!-- change to match your file/naming structure -->
@@ -19,9 +19,9 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
-<body class="bg-dark" style="color: whitesmoke">
+<body class="bg-dark" style="color: #DADDD8">
     <div class="container my-5 text-center">
-        <h1 style="color: purple">Belt Exam</h1>
+        <h1 style="color: #DADDD8">Disqord</h1>
         <p>Login/Registration</p>
     </div>
     <div class="d-flex justify-content-center">
