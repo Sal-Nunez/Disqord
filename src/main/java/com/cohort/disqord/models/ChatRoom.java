@@ -3,6 +3,7 @@ package com.cohort.disqord.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -52,17 +55,19 @@ public class ChatRoom {
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
-			name="user_chat_rooms",
+			name="chat_room_members",
 			joinColumns = @JoinColumn(name="chat_room_id"),
 			inverseJoinColumns = @JoinColumn(name="user_id")
 			)
 	private List<User> chatRoomMembers;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="chatRoom", cascade=CascadeType.ALL)
+	private List<ChatMessage> chatMessages;
 	
 	
-	
-	
-	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="owner_id")
+	private User user;
 	
 	
     //Dates
