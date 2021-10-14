@@ -91,6 +91,9 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name="chat_room_id"))
 	private List<ChatRoom> chatRooms;
 	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<ChatRoom> chatRoomsIOwn;
+	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="friendships",
@@ -98,10 +101,20 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name="friend_id"))
 	private List<User> friends;
 	
+	
 	@OneToMany(mappedBy="owner", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<DiscordServer> servers;
+	private List<Server> servers;
 	
 	
+	@OneToMany(mappedBy="serverMember", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<ServerMember> serverMembers;
+	
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<ChannelMessage> channelMessages;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<ChatMessage> chatMessages;
 	
 	
 	

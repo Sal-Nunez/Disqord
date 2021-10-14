@@ -20,8 +20,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -29,7 +27,6 @@ import lombok.Setter;
 @Entity
 @Table(name="server_members")
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class ServerMember {
 	
 //  Member Var.s ================================================
@@ -38,7 +35,7 @@ public class ServerMember {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NonNull
+	
 	private int serverLevel;
 	
 	@Column(updatable = false)
@@ -46,7 +43,7 @@ public class ServerMember {
 	private Date createdAt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
-
+	
 	// auto update/create
 	@PrePersist
 	protected void onCreate() {
@@ -62,8 +59,8 @@ public class ServerMember {
 	
 	// a user can be a member of many servers
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "member_id")
+	private User serverMember;
 	
 	// a server can have many members
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -71,7 +68,7 @@ public class ServerMember {
 	private Server server;
 	
 	// one server member can have many roles
-	@OneToMany(mappedBy = "server_member", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "serverMember", fetch = FetchType.LAZY)
 	private List<Role> roles;
 
 }
