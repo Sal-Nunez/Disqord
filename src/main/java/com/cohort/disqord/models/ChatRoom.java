@@ -55,7 +55,7 @@ public class ChatRoom {
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
-			name="chat_room_members",
+			name="user_chat_rooms",
 			joinColumns = @JoinColumn(name="chat_room_id"),
 			inverseJoinColumns = @JoinColumn(name="user_id")
 			)
