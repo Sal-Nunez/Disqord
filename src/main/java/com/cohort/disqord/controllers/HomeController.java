@@ -24,7 +24,7 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
     	if (session.getAttribute("user_id") != null) {
-    		return "redirect:/classes";
+    		return "redirect:/dashboard";
     	}
     	
         model.addAttribute("newUser", new User());
@@ -35,7 +35,7 @@ public class HomeController {
     @GetMapping("/login")
     public String login(Model model, HttpSession session) {
     	if (session.getAttribute("user_id") != null) {
-    		return "redirect:/classes";
+    		return "redirect:/dashboard";
     	}
     	
         model.addAttribute("newUser", new User());
@@ -52,7 +52,7 @@ public class HomeController {
             return "/Users/index.jsp";
         }
         session.setAttribute("user_id", newUser.getId());
-        return "redirect:/classes";
+        return "redirect:/dashboard";
     }
     
     @PostMapping("/login")
@@ -64,8 +64,18 @@ public class HomeController {
             return "/Users/index.jsp";
         }
         session.setAttribute("user_id", user.getId());
-        return "redirect:/classes";
+        return "redirect:/dashboard";
     }
+    
+	@GetMapping("/dashboard")
+    public String dashboard(Model model, HttpSession session) {
+    	if (session.getAttribute("user_id") != null) {
+    		return "/Users/dashboard.jsp";
+    	}
+        model.addAttribute("newUser", new User());
+        model.addAttribute("newLogin", new LoginUser());
+        return "/Users/dashboard.jsp";
+	}
     
     
     @GetMapping("/logout")
