@@ -63,15 +63,15 @@
 	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
 	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
 	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-success mt-1">+ Add Server Example</a>
+	        	<a href="#" class="btn btn-success mt-1">+ Add a server</a>
         	</div>
-	        <div class="main col-1" id="chats">
+	        <div class="main col-1 ms-4" id="chats">
 	        	<a href="#" class="btn btn-light mt-1">Chat Example</a>
 	        	<a href="#" class="btn btn-light mt-1">Chat Example</a>
 	        	<a href="#" class="btn btn-light mt-1">Chat Example</a>
 	        	<a href="#" class="btn btn-light mt-1">Chat Example</a>
 	        </div>
-	        <div class="col-10" id="main">
+	        <div class="col-5 ms-4" id="main">
 	        	<h1>Chat Messages</h1>
 				<div class="container1">
 				  <img src="/w3images/bandmember.jpg" alt="Avatar">

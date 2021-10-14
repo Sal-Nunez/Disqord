@@ -46,7 +46,7 @@ public class ServerController {
             @Valid @ModelAttribute("server") Server server,
             BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
-            return "newServer.jsp";
+            return "/Servers/newServer.jsp";
         } else {
             serverServ.updateCreate(server);
             return "redirect:/dashboard";
