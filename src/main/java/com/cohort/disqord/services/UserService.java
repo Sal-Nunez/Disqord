@@ -50,7 +50,7 @@ public class UserService {
         		return null;
         	} else {
         		return user;
-        	}
+        	}        	
         }
         Optional<User> potentialUser1 = userRepo.findByUserName(newLogin.getEmail());
         if (!potentialUser1.isPresent()) {
