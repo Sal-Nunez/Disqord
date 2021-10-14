@@ -37,6 +37,11 @@
                 <form:errors path="lastName" class="text-danger" />
             </div>
             <div class="form-group">
+                <label>Username</label>
+                <form:input path="userName" class="form-control mb-3" />
+                <form:errors path="userName" class="text-danger" />
+            </div>
+            <div class="form-group">
                 <label>Email:</label>
                 <form:input path="email" class="form-control mb-3" />
                 <form:errors path="email" class="text-danger" />

@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class LoginUser {
 	    
-    @NotEmpty(message="Email or User Name is required!")
+    @NotEmpty(message="Email or Username is required!")
     private String email;
     
     @NotEmpty(message="Password is required!")
