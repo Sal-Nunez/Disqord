@@ -41,9 +41,6 @@ public class UserService {
         }
         Optional<User> potentialUser = userRepo.findByEmail(newLogin.getEmail());
         if(!potentialUser.isPresent()) {
-            result.rejectValue("email", "Unique", "Unknown email!");
-            return null;
-            
         }
         User user = potentialUser.get();
         if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {

@@ -61,7 +61,6 @@ public class User {
 	@Size(min=5, message="User Name must be at least 5 characters")
 	@NonNull
 	@NotNull
-	@Email
 	private String userName;
 	
 	@NotEmpty
