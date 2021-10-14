@@ -41,15 +41,31 @@ public class UserService {
         }
         Optional<User> potentialUser = userRepo.findByEmail(newLogin.getEmail());
         if(!potentialUser.isPresent()) {
-        }
-        User user = potentialUser.get();
-        if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {
-            result.rejectValue("password", "Matches", "Invalid Password!");
-        }
-        if(result.hasErrors()) {
-            return null;
         } else {
-            return user;
+        	User user = potentialUser.get();
+        	if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {
+        		result.rejectValue("password", "Matches", "Invalid Password!");
+        	}
+        	if(result.hasErrors()) {
+        		return null;
+        	} else {
+        		return user;
+        	}
+        }
+        Optional<User> potentialUser1 = userRepo.findByUserName(newLogin.getEmail());
+        if (!potentialUser1.isPresent()) {
+        	result.rejectValue("email", "Unique", "Unknown username or email!");
+        	return null;
+        } else {
+        	User user = potentialUser1.get();
+        	if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {
+        		result.rejectValue("password", "Matches", "Invalid Password!");
+        	}
+        	if(result.hasErrors()) {
+        		return null;
+        	} else {
+        		return user;
+        	}    
         }
     }
     
@@ -76,6 +92,16 @@ public class UserService {
 	
 	public void deleteUser(Long id) {
 		userRepo.deleteById(id);
+	}
+
+	public User findById(Long id) {
+    	Optional<User> user = userRepo.findById(id);
+    	
+    	if (user.isPresent()) {
+    		return user.get();
+    	} else {
+    		return null;
+    	}
 	}
     
     

@@ -26,6 +26,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.cohort.disqord.annotations.ValidPassword;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -64,7 +66,7 @@ public class User {
 	private String userName;
 	
 	@NotEmpty
-	@Size(min=8, message="Email must be at least 8 characters")
+	@Size(min=7, message="Email must be at least 7 characters")
 	@NonNull
 	@NotNull
 	@Email
@@ -72,6 +74,7 @@ public class User {
 	
 	@NotEmpty
     @NotNull
+    @ValidPassword
     private String password;
 	
 	@Transient
@@ -125,7 +128,7 @@ public class User {
 
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
-
+	
 	
 	
     //Dates

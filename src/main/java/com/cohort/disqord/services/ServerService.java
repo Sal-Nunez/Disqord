@@ -11,7 +11,6 @@ import com.cohort.disqord.repositories.ServerRepository;
 
 @Service
 public class ServerService {
-
 	
 	@Autowired
 	ServerRepository serverRepo;
@@ -36,5 +35,5 @@ public class ServerService {
 	public void delete(Long id) {
 		serverRepo.deleteById(id);
 	}
-
+	
 }
