@@ -11,17 +11,16 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Belt Exam</title>
+    <title>Disqord</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/main.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css" />
     <!-- change to match your file/naming structure -->
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
-<body class="bg-dark" style="color: whitesmoke">
+<body class="bg-dark container" style="color: #DADDD8">
     <div class="container my-5 text-center">
-        <h1 style="color: purple">Belt Exam</h1>
+        <h1 style="color: #DADDD8">Disqord</h1>
         <p>Login/Registration</p>
     </div>
     <div class="d-flex justify-content-center">
@@ -35,6 +34,11 @@
                 <label>Last Name:</label>
                 <form:input path="lastName" class="form-control mb-3" />
                 <form:errors path="lastName" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <form:input path="userName" class="form-control mb-3" />
+                <form:errors path="userName" class="text-danger" />
             </div>
             <div class="form-group">
                 <label>Email:</label>
@@ -68,5 +72,7 @@
             <input type="submit" value="Login" class="btn btn-success" />
         </form:form>
     </div>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
