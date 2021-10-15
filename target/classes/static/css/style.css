@@ -1,5 +1,10 @@
 @charset "ISO-8859-1";
 
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
 .container1 {
   border: 2px solid #dedede;
   background-color: #DADDD8;
@@ -41,4 +46,8 @@
 .time-left {
   float: left;
   color: #999;
+}
+
+p{
+	font-size: 2rem;
 }

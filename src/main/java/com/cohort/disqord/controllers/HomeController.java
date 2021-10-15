@@ -23,7 +23,7 @@ public class HomeController {
     
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
-    	if (session.getAttribute("user_id") != null) {
+    	if (session.getAttribute("uuid") != null) {
     		return "redirect:/dashboard";
     	}
     	
@@ -34,7 +34,7 @@ public class HomeController {
     
     @GetMapping("/login")
     public String login(Model model, HttpSession session) {
-    	if (session.getAttribute("user_id") != null) {
+    	if (session.getAttribute("uuid") != null) {
     		return "redirect:/dashboard";
     	}
     	
@@ -51,7 +51,7 @@ public class HomeController {
             model.addAttribute("newLogin", new LoginUser());
             return "/Users/index.jsp";
         }
-        session.setAttribute("user_id", newUser.getId());
+        session.setAttribute("uuid", newUser.getId());
         return "redirect:/dashboard";
     }
     
@@ -63,24 +63,26 @@ public class HomeController {
             model.addAttribute("newUser", new User());
             return "/Users/index.jsp";
         }
-        session.setAttribute("user_id", user.getId());
+        session.setAttribute("uuid", user.getId());
         return "redirect:/dashboard";
     }
     
 	@GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
-    	if (session.getAttribute("user_id") != null) {
+    	if (session.getAttribute("uuid") != null) {
+    		Long id = (Long) session.getAttribute("uuid");
+    		User user = userServ.findById(id);
+    		model.addAttribute("user", user);
     		return "/Users/dashboard.jsp";
+    	} else {
+    		return "redirect:/";    		
     	}
-        model.addAttribute("newUser", new User());
-        model.addAttribute("newLogin", new LoginUser());
-        return "/Users/dashboard.jsp";
 	}
     
     
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-    	session.removeAttribute("user_id");
+    	session.removeAttribute("uuid");
     	
     	return "redirect:/";
     }
