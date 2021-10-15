@@ -21,7 +21,6 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -48,7 +47,6 @@ public class Server {
 
 	private String banner;
 
-	
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="owner_id")
