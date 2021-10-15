@@ -52,18 +52,13 @@
         </nav>
         <div class="main row">
         	<div class="col-1" id="servers">
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-light mt-1">Server Example</a>
-	        	<a href="#" class="btn btn-success mt-1">+ Add a server</a>
+        		<c:forEach var = "server" items = "${ user.servers }">
+	        	<a href="#" class="btn btn-light mt-1"><c:out value="${ server.name }" /></a>        		
+        		</c:forEach>
+        		<c:forEach var = "server" items = "${ user.serverMembers }">
+	        	<a href="#" class="btn btn-light mt-1"><c:out value="${ server.server.name }" /></a>        		
+        		</c:forEach>
+	        	<a href="servers/new" class="btn btn-success mt-1">+ Add a server</a>
         	</div>
 	        <div class="main col-1 ms-4" id="chats">
 	        	<a href="#" class="btn btn-light mt-1">Chat Example</a>
@@ -73,26 +68,26 @@
 	        </div>
 	        <div class="col-5 ms-4" id="main">
 	        	<h1>Chat Messages</h1>
-				<div class="container1">
-				  <img src="/w3images/bandmember.jpg" alt="Avatar">
-				  <p>Hello. How are you today?</p>
-				  <span class="time-right">11:00</span>
+				<div class="container1 text-dark">
+				  <img src="https://icon2.cleanpng.com/20180626/ehy/kisspng-avatar-user-computer-icons-software-developer-5b327cc951ae22.8377289615300354013346.jpg" alt="Avatar">
+				  <p class="text-dark">Hello. How are you today?</p>
+				  <span class="time-right text-dark">11:00</span>
 				</div>
 				
 				<div class="container1 darker">
-				  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">
+				  <img src="https://img.favpng.com/8/9/5/vector-graphics-clip-art-avatar-computer-icons-image-png-favpng-maGsu9iBZTCk9dTVfC8FyHqDe.jpg" alt="Avatar" class="right">
 				  <p>Hey! I'm fine. Thanks for asking!</p>
 				  <span class="time-left">11:01</span>
 				</div>
 				
-				<div class="container1">
-				  <img src="/w3images/bandmember.jpg" alt="Avatar">
-				  <p>Sweet! So, what do you wanna do today?</p>
-				  <span class="time-right">11:02</span>
+				<div class="container1 text-dark">
+				  <img src="https://icon2.cleanpng.com/20180626/ehy/kisspng-avatar-user-computer-icons-software-developer-5b327cc951ae22.8377289615300354013346.jpg" alt="Avatar">
+				  <p class="text-dark">Sweet! So, what do you wanna do today?</p>
+				  <span class="time-right text-dark">11:02</span>
 				</div>
 				
 				<div class="container1 darker">
-				  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">
+				  <img src="https://img.favpng.com/8/9/5/vector-graphics-clip-art-avatar-computer-icons-image-png-favpng-maGsu9iBZTCk9dTVfC8FyHqDe.jpg" alt="Avatar" class="right">
 				  <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
 				  <span class="time-left">11:05</span>
 				</div>

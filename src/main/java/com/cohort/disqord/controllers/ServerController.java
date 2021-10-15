@@ -45,11 +45,18 @@ public class ServerController {
     public String createServer(
             @Valid @ModelAttribute("server") Server server,
             BindingResult result, HttpSession session) {
-        if (result.hasErrors()) {
-            return "/Servers/newServer.jsp";
+        if(session.getAttribute("uuid") == null) {
+        return "redirect:/";
         } else {
-            serverServ.updateCreate(server);
-            return "redirect:/dashboard";
+	        if (result.hasErrors()) {
+	            return "newServer.jsp";
+	        } else {
+	        	Long id = (Long) session.getAttribute("uuid");
+	        	User user = userService.findById(id);
+	        	server.setOwner(user);
+	            serverServ.updateCreate(server);
+	            return "redirect:/dashboard";
+	        }
         }
     }
 
