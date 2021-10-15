@@ -23,8 +23,8 @@ public class HomeController {
     
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
-    	if (session.getAttribute("user_id") != null) {
-    		return "redirect:/classes";
+    	if (session.getAttribute("uuid") != null) {
+    		return "redirect:/dashboard";
     	}
     	
         model.addAttribute("newUser", new User());
@@ -34,8 +34,8 @@ public class HomeController {
     
     @GetMapping("/login")
     public String login(Model model, HttpSession session) {
-    	if (session.getAttribute("user_id") != null) {
-    		return "redirect:/classes";
+    	if (session.getAttribute("uuid") != null) {
+    		return "redirect:/dashboard";
     	}
     	
         model.addAttribute("newUser", new User());
@@ -51,8 +51,8 @@ public class HomeController {
             model.addAttribute("newLogin", new LoginUser());
             return "/Users/index.jsp";
         }
-        session.setAttribute("user_id", newUser.getId());
-        return "redirect:/classes";
+        session.setAttribute("uuid", newUser.getId());
+        return "redirect:/dashboard";
     }
     
     @PostMapping("/login")
@@ -63,14 +63,26 @@ public class HomeController {
             model.addAttribute("newUser", new User());
             return "/Users/index.jsp";
         }
-        session.setAttribute("user_id", user.getId());
-        return "redirect:/classes";
+        session.setAttribute("uuid", user.getId());
+        return "redirect:/dashboard";
     }
+    
+	@GetMapping("/dashboard")
+    public String dashboard(Model model, HttpSession session) {
+    	if (session.getAttribute("uuid") != null) {
+    		Long id = (Long) session.getAttribute("uuid");
+    		User user = userServ.findById(id);
+    		model.addAttribute("user", user);
+    		return "/Users/dashboard.jsp";
+    	} else {
+    		return "redirect:/";    		
+    	}
+	}
     
     
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-    	session.removeAttribute("user_id");
+    	session.removeAttribute("uuid");
     	
     	return "redirect:/";
     }
