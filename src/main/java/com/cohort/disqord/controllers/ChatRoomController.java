@@ -134,8 +134,8 @@ public class ChatRoomController {
             return "redirect:/";
         }	
     	
-        @MessageMapping("/chat.sendMessage")
-        @SendTo("/topic/public")
+        @MessageMapping("/chat.sendMessage/{id}")
+        @SendTo("/topic/public/{id}")
         public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         	chatMessageServ.updateCreate(chatMessage);
             return chatMessage;

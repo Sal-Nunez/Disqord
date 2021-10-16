@@ -44,7 +44,7 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/topic/public/' + chat_room_id, onMessageReceived);
 
     // Tell your username to the server
 
@@ -68,7 +68,7 @@ function sendMessage(event) {
             user_id: user_id,
             chat_room_id: chat_room_id
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chat.sendMessage/" + chat_room_id, {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
