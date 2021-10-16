@@ -1,6 +1,6 @@
 package com.cohort.disqord.controllers;
 
-import java.util.Date;
+
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -60,9 +59,18 @@ public class ChatRoomController {
         if (result.hasErrors()) {
             return "newChatRoom.jsp";
         } else {
+        	User user = userService.findById((Long) session.getAttribute("uuid"));
+        	chatRoom.setUser(user);
             chatRoomServ.updateCreate(chatRoom);
-            return "redirect:/dashboard";
+            return "redirect:/chatRoomMembers/add/" + chatRoom.getId();
         }
+    }
+    
+    @GetMapping("/chatRoomMembers/add/{id}")
+    public String addUserToChatRoom(@PathVariable("id") Long id, HttpSession session) {
+    	User user = userService.findById((Long) session.getAttribute("uuid"));
+    	chatRoomServ.addUser(id, user);
+    	return "redirect:/chatRooms/" +id;
     }
 
     @GetMapping("/chatRooms/{id}/edit")

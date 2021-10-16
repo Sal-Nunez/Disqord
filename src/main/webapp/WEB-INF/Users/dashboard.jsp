@@ -64,6 +64,7 @@
 	        <c:forEach var="chatRoom" items="${ user.chatRooms }">
 	        	<a href="/chatRooms/${ chatRoom.id }" class="btn btn-light mt-1"><c:out value="${ chatRoom.name }" /></a>	        
 	        </c:forEach>
+	        	<a href="/chatRooms/new" class="btn btn-light mt-1">New Chat Room</a>	        
 	        </div>
 	        <div class="col-5 ms-4" id="main">
 	        	<h1>Chat Messages</h1>
