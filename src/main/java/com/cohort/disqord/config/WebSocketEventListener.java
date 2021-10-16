@@ -1,6 +1,6 @@
 package com.cohort.disqord.config;
 
-import javax.servlet.http.HttpSession;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,14 +13,11 @@ import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import com.cohort.disqord.models.ChatMessage;
-import com.cohort.disqord.models.User;
-import com.cohort.disqord.services.UserService;
+
 
 @Component
 public class WebSocketEventListener {
 	
-	@Autowired
-	UserService userServ;
 	
     private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
     
@@ -33,16 +30,18 @@ public class WebSocketEventListener {
     }
 
     @EventListener
-    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event, HttpSession session) {
+    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        
-        Long userId = (Long) session.getAttribute("uuid");  
-        User user = userServ.getOne(userId);
-        
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setUser(user);
-        
-        messagingTemplate.convertAndSend("/topic/public", chatMessage);
-    }
 
+        String username = (String) headerAccessor.getSessionAttributes().get("username");
+        if(username != null) {
+            logger.info("User Disconnected : " + username);
+
+            ChatMessage chatMessage = new ChatMessage();
+
+            messagingTemplate.convertAndSend("/topic/public", chatMessage);
+    }
+    
+
+}
 }

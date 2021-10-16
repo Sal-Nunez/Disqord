@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cohort.disqord.models.Server;
-import com.cohort.disqord.models.User;
 import com.cohort.disqord.repositories.ServerRepository;
 
 @Service
@@ -37,7 +36,7 @@ public class ServerService {
 		serverRepo.deleteById(id);
 	}
 	
-	public void addServerMember(Server server, User user) {
-		
-	}
+	
+	
+	
 }

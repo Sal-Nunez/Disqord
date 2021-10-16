@@ -1,5 +1,7 @@
 package com.cohort.disqord.controllers;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -127,18 +129,13 @@ public class ChatRoomController {
         @MessageMapping("/chat.sendMessage")
         @SendTo("/topic/public")
         public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+            chatMessage.setUser_id(1);
+            chatMessage.setChat_room_id(1);
         	chatMessageServ.updateCreate(chatMessage);
             return chatMessage;
         }
 
-        @MessageMapping("/chat.addUser")
-        @SendTo("/topic/public")
-        public ChatMessage addUser(@Payload ChatMessage chatMessage, 
-                                   SimpMessageHeaderAccessor headerAccessor) {
-            // Add username in web socket session
-            headerAccessor.getSessionAttributes().put("username", chatMessage.getUser());
-            
-            return chatMessage;
-        }
+
 
 }
+

@@ -26,10 +26,8 @@ var colors = [
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
-
+    console.log(username, "***********************");
     if(username) {
-        usernamePage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
 
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
@@ -45,10 +43,6 @@ function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
 
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser",
-        {},
-        JSON.stringify({sender: username, type: 'JOIN'})
-    )
 
     connectingElement.classList.add('hidden');
 }
@@ -82,12 +76,15 @@ function onMessageReceived(payload) {
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
+        messageElement.classList.add('text-white');
         message.content = message.sender + ' joined!';
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
+        messageElement.classList.add('text-white');
         message.content = message.sender + ' left!';
     } else {
         messageElement.classList.add('chat-message');
+        messageElement.classList.add('text-white');
 
         var avatarElement = document.createElement('i');
         var avatarText = document.createTextNode(message.sender[0]);
@@ -99,10 +96,12 @@ function onMessageReceived(payload) {
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(message.sender);
         usernameElement.appendChild(usernameText);
+        usernameElement.classList.add('text-white');
         messageElement.appendChild(usernameElement);
     }
 
     var textElement = document.createElement('p');
+    textElement.classList.add('text-white');
     var messageText = document.createTextNode(message.content);
     textElement.appendChild(messageText);
 
@@ -125,6 +124,5 @@ function getAvatarColor(messageSender) {
     var index = Math.abs(hash % colors.length);
     return colors[index];
 }
-
-usernameForm.addEventListener('submit', connect, true)
+window.onload = connect;
 messageForm.addEventListener('submit', sendMessage, true)

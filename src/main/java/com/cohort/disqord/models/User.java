@@ -115,7 +115,7 @@ public class User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ChannelMessage> channelMessages;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ChatMessage> chatMessages;
 	
 	
