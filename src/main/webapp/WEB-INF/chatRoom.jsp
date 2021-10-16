@@ -53,8 +53,9 @@
             </form>
         </div>
     </div>
-    <input type="hidden" id="name" placeholder="Username" autocomplete="off" value="${ user.userName }" class="form-control" />
-
+    <input type="hidden" id="name" value="${ user.userName }" />
+    <input type="hidden" id="chat_room_id" value="${ chatRoom.id }" />
+    <input type="hidden" id="user_id" value="${ user.id }" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script src="/js/script.js"></script>

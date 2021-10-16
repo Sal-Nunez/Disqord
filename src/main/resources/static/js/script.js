@@ -18,6 +18,8 @@ for(let x=0; x<i.length; x++){
 
 var stompClient = null;
 var username = null;
+var user_id = null;
+var chat_room_id = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -26,6 +28,8 @@ var colors = [
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
+    user_id = document.querySelector('#user_id').value.trim();
+    chat_room_id = document.querySelector('#chat_room_id').value.trim();
     console.log(username, "***********************");
     if(username) {
 
@@ -60,7 +64,9 @@ function sendMessage(event) {
         var chatMessage = {
             sender: username,
             content: messageInput.value,
-            type: 'CHAT'
+            type: 'CHAT',
+            user_id: user_id,
+            chat_room_id: chat_room_id
         };
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
