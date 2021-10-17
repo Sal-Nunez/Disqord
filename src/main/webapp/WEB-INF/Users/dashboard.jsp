@@ -19,7 +19,7 @@
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
-<body class="bg-dark" style="color: whitesmoke;">
+<body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
@@ -43,6 +43,10 @@
                             </ul>
                         </li>
                     </ul>
+                    <div class="form-check form-switch me-4">
+  						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" onClick="darkMode()">
+  						<label class="form-check-label darkModeText" for="flexSwitchCheckChecked">Dark Mode</label>
+					</div>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -95,4 +99,5 @@
         </div>
 	</div>
 </body>
+<script src="/js/script.js"></script>
 </html>
