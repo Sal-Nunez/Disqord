@@ -8,11 +8,24 @@ var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 var i = document.querySelectorAll("i");
+var timeFloaters = document.querySelectorAll(".time")
+messageArea.scrollTop = messageArea.scrollHeight;
+
+timeFloaters.forEach(e => {
+	e.addEventListener("mouseover", () => {
+		tooltiptime(e);
+	})
+})
+
+timeFloaters.forEach(e => {
+	e.addEventListener("mouseout", () => {
+		tooltiptimemouseout(e);
+	})
+})
 
 
 for(let x=0; x<i.length; x++){
 	let name = i[x].className
-	console.log(name);
 	i[x].style['background-color'] = getAvatarColor(name.toString());
 }
 
@@ -20,16 +33,40 @@ var stompClient = null;
 var username = null;
 var user_id = null;
 var chat_room_id = null;
+var channel_id = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
+function tooltiptime(e) {
+	wait(1000);
+	console.log(e.children[0])
+	e.children[0].classList.add("tooltiptimevisible");
+}
+
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
+
+function tooltiptimemouseout(e){
+	e.children[0].classList.remove("tooltiptimevisible");
+}
+
 function connect(event) {
     username = document.querySelector('#name').value.trim();
     user_id = document.querySelector('#user_id').value.trim();
-    chat_room_id = document.querySelector('#chat_room_id').value.trim();
+    if(document.querySelector("#chat_room_id")){
+    chat_room_id = document.querySelector('#chat_room_id').value.trim();	
+    }
+    if(document.querySelector("#channel_id")){
+    channel_id = document.querySelector('#channel_id').value.trim();	
+    }
     console.log(username, "***********************");
     if(username) {
 
@@ -44,7 +81,11 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public/' + chat_room_id, onMessageReceived);
+    if(channel_id){
+	console.log("there is no channel id though right")
+	} else if (chat_room_id){
+    stompClient.subscribe('/topic/public/chat_room/' + chat_room_id, onMessageReceived);		
+	}
 
     // Tell your username to the server
 
@@ -68,8 +109,11 @@ function sendMessage(event) {
             user_id: user_id,
             chat_room_id: chat_room_id
         };
-        stompClient.send("/app/chat.sendMessage/" + chat_room_id, {}, JSON.stringify(chatMessage));
-        messageInput.value = '';
+    if (document.querySelector("#chat_room_id")){
+	console.log("we in here")
+    stompClient.send("/app/chat.sendMessage/chat_room/" + chat_room_id, {}, JSON.stringify(chatMessage));	
+    }
+    messageInput.value = '';
     }
     event.preventDefault();
 }
@@ -100,10 +144,29 @@ function onMessageReceived(payload) {
         messageElement.appendChild(avatarElement);
 
         var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
+        var usernameText = document.createTextNode(message.sender + " ");
         usernameElement.appendChild(usernameText);
         usernameElement.classList.add('text-white');
         messageElement.appendChild(usernameElement);
+        var time = document.createTextNode(message.time);
+        var timeElement = document.createElement('span');
+        usernameElement.appendChild(timeElement);
+        timeElement.appendChild(time);
+        timeElement.classList.add("time");
+        var timeFloat = document.createTextNode(message.floatTime);
+        var timeFloatElement = document.createElement('span');
+        timeElement.appendChild(timeFloatElement);
+        timeFloatElement.appendChild(timeFloat);
+        timeFloatElement.classList.add("tooltiptime");
+        
+        timeElement.addEventListener("mouseover", () => {
+		tooltiptime(timeElement);
+	})
+        
+        timeElement.addEventListener("mouseout", () => {
+		tooltiptimemouseout(timeElement);
+		
+	})
     }
 
     var textElement = document.createElement('p');

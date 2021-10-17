@@ -1,7 +1,10 @@
 package com.cohort.disqord.models;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,6 +72,37 @@ public class ChatMessage {
 	
 	
 	public String getTime() {
+		Date date = new Date();
+		Date createdAt = this.createdAt;
+		SimpleDateFormat date_format = new SimpleDateFormat("h:mm a");
+		String date1 = date_format.format(createdAt);
+		SimpleDateFormat date_format1 = new SimpleDateFormat("MM/dd/yyyy");
+		String date2 = date_format1.format(createdAt);
+		String today = date_format1.format(date);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DATE, -1);
+		Date yesterdate = cal.getTime();
+		String yesterday = date_format1.format(yesterdate);
+		System.out.println(date2 + "\n" + yesterday);
+		if (today.equals(date2)) {
+			return "Today at " + date1;
+		} else if (yesterday.equals(date2)) {
+			return "Yesterday at " + date1;
+		} else {
+			return date2;
+		}
+	}
+	
+	public String getFloatTime() {
+		Date createdAt = this.createdAt;
+		SimpleDateFormat date_format = new SimpleDateFormat("EE, MMMM dd, yyyy h:mm a");
+		String date = date_format.format(createdAt);
+		return date;
+	}
+	
+	
+	public String getDTime() {
 		Date date = new Date();
 		System.out.println(date);
 		Date createdAt = this.createdAt;
