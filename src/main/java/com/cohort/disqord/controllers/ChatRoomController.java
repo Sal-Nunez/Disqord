@@ -1,9 +1,14 @@
 package com.cohort.disqord.controllers;
 
+
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,8 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.cohort.disqord.models.ChatMessage;
 import com.cohort.disqord.models.ChatRoom;
 import com.cohort.disqord.models.User;
+import com.cohort.disqord.services.ChatMessageService;
 import com.cohort.disqord.services.ChatRoomService;
 import com.cohort.disqord.services.UserService;
 
@@ -27,6 +34,9 @@ public class ChatRoomController {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    ChatMessageService chatMessageServ;
 
 
 
@@ -49,9 +59,18 @@ public class ChatRoomController {
         if (result.hasErrors()) {
             return "newChatRoom.jsp";
         } else {
+        	User user = userService.findById((Long) session.getAttribute("uuid"));
+        	chatRoom.setUser(user);
             chatRoomServ.updateCreate(chatRoom);
-            return "redirect:/dashboard";
+            return "redirect:/chatRoomMembers/add/" + chatRoom.getId();
         }
+    }
+    
+    @GetMapping("/chatRoomMembers/add/{id}")
+    public String addUserToChatRoom(@PathVariable("id") Long id, HttpSession session) {
+    	User user = userService.findById((Long) session.getAttribute("uuid"));
+    	chatRoomServ.addUser(id, user);
+    	return "redirect:/chatRooms/" +id;
     }
 
     @GetMapping("/chatRooms/{id}/edit")
@@ -113,5 +132,16 @@ public class ChatRoomController {
             }
             session.removeAttribute("uuid");
             return "redirect:/";
+        }	
+    	
+        @MessageMapping("/chat.sendMessage/{id}")
+        @SendTo("/topic/public/{id}")
+        public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        	chatMessageServ.updateCreate(chatMessage);
+            return chatMessage;
         }
+
+
+
 }
+

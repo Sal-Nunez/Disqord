@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import com.cohort.disqord.models.Server;
+import com.cohort.disqord.models.ServerMember;
 import com.cohort.disqord.models.User;
+import com.cohort.disqord.services.ServerMemberService;
 import com.cohort.disqord.services.ServerService;
 import com.cohort.disqord.services.UserService;
 
@@ -27,6 +29,9 @@ public class ServerController {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    ServerMemberService serverMemberServ;
 
 
     @GetMapping("/servers/new")
@@ -54,7 +59,11 @@ public class ServerController {
 	        	Long id = (Long) session.getAttribute("uuid");
 	        	User user = userService.findById(id);
 	        	server.setOwner(user);
-	            serverServ.updateCreate(server);
+	        	serverServ.updateCreate(server);
+	        	// Save owner as server member
+	        	ServerMember serverMember = new ServerMember();
+	        	serverMember.setServerMember(user);
+	        	serverMember.setServer(server);
 	            return "redirect:/dashboard";
 	        }
         }

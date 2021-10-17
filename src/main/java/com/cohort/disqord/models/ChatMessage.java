@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
@@ -33,6 +34,8 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class ChatMessage {
 	
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -43,18 +46,27 @@ public class ChatMessage {
 	private String content;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user")
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="chat_room_id")
+	@JoinColumn(name="chat_room")
 	private ChatRoom chatRoom;
+	
+	private int user_id;
+	private int chat_room_id;
+	
+	@Transient
+	private String sender;
+	
 	
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdAt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
+	
+	
 	
 	public String getTime() {
 		Date date = new Date();
@@ -104,6 +116,7 @@ public class ChatMessage {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
+
 
 	
 	
