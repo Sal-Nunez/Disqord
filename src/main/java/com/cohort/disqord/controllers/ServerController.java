@@ -1,5 +1,7 @@
 package com.cohort.disqord.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.cohort.disqord.models.Channel;
 import com.cohort.disqord.models.Server;
 import com.cohort.disqord.models.ServerMember;
 import com.cohort.disqord.models.User;
+import com.cohort.disqord.services.ChannelService;
 import com.cohort.disqord.services.ServerMemberService;
 import com.cohort.disqord.services.ServerService;
 import com.cohort.disqord.services.UserService;
@@ -29,6 +33,9 @@ public class ServerController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ChannelService channelServ;
     
     @Autowired
     ServerMemberService serverMemberServ;
@@ -102,8 +109,7 @@ public class ServerController {
     }
 
     @GetMapping("/servers/{id}")
-    public String server(HttpSession session,
-            @PathVariable("id") Long server_id,
+    public String server(HttpSession session, @PathVariable("id") Long server_id,
             Model model) {
         if(session.getAttribute("uuid") == null) {
         return "redirect:/";
@@ -113,20 +119,25 @@ public class ServerController {
         Server server = serverServ.findById(server_id);
         model.addAttribute("server", server);
         model.addAttribute("user", user);
-        return "server.jsp";
+    // ======== Channel adds ===================
+//        List<Channel> channels = channelServ.findAll();
+//        model.addAttribute("channels", channels);
+//        
+        System.out.println(server.getChannels());
+        return "serverView.jsp";
         }
     }
 
-        @DeleteMapping("/servers/{id}")
-        public String deleteServer(@PathVariable("id") Long server_id, HttpSession session) {
-            Long id = (Long) session.getAttribute("uuid");
-            User user = userService.findById(id);
-            Server server = serverServ.findById(server_id);
-            if (server.getOwner() == user) {
-                serverServ.delete(server_id);
-                return "redirect:/dashboard";
-            }
-            session.removeAttribute("uuid");
-            return "redirect:/";
+    @DeleteMapping("/servers/{id}")
+    public String deleteServer(@PathVariable("id") Long server_id, HttpSession session) {
+        Long id = (Long) session.getAttribute("uuid");
+        User user = userService.findById(id);
+        Server server = serverServ.findById(server_id);
+        if (server.getOwner() == user) {
+            serverServ.delete(server_id);
+            return "redirect:/dashboard";
         }
+        session.removeAttribute("uuid");
+        return "redirect:/";
+    }
 }

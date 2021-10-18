@@ -44,7 +44,7 @@ public class Channel {
 	private String name;
 	
 	@NonNull
-	@Pattern(regexp="^[a-zA-Z0-9]{2,20}$", message="Letters and numbers only. 2-20 characters.")
+	@Pattern(regexp="^[a-zA-Z0-9#$-]{2,20}$", message="Letters and numbers only. 2-20 characters.")
 	private String category;
 	
 	
