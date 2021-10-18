@@ -126,7 +126,7 @@ public class UserService {
 
 	public void addFriend(User user, User friend) {
 		user.getFriends().add(friend);
-		
+		userRepo.save(user);
 	}
 
     
