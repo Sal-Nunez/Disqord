@@ -142,7 +142,9 @@ public class User {
         this.updatedAt = new Date();
     }
     
-    
+    public String getFullName() {
+    	return this.firstName + " " + this.lastName;
+    }
     
     
 }
