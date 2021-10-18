@@ -54,6 +54,8 @@
                 </div>
             </div>
         </nav>
+        
+        
         <div class="main row">
         	<div class="col-1" id="servers">
         		<c:forEach var = "server" items = "${ user.servers }">
@@ -62,41 +64,30 @@
         		<c:forEach var = "server" items = "${ user.serverMembers }">
 	        	<a href="#" class="btn btn-light mt-1"><c:out value="${ server.server.name }" /></a>        		
         		</c:forEach>
-	        	<a href="servers/new" class="btn btn-success mt-1">+ Add a server</a>
+	        	<a href="/servers/new" class="btn btn-success mt-1">+ Add a server</a>
         	</div>
-	        <div class="main col-1 ms-4" id="chats">
-	        <c:forEach var="chatRoom" items="${ user.chatRooms }">
-	        	<a href="/chatRooms/${ chatRoom.id }" class="btn btn-light mt-1"><c:out value="${ chatRoom.name }" /></a>	        
-	        </c:forEach>
-	        	<a href="/chatRooms/new" class="btn btn-light mt-1">New Chat Room</a>	        
+	        <div class="main col-1 ms-4" id="channels">
+		        <c:forEach var="channel" items="${ server.channels }">
+		        	<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-light mt-1"><c:out value="${ channel.name }" /></a>	        
+		        </c:forEach>
+		        	<a href="/servers/${server.id}/channels/new" class="btn btn-light mt-1">New Channel</a>	        
 	        </div>
-	        <div class="col-5 ms-4" id="main">
-	        	<h1>Chat Messages</h1>
-				<div class="container1 text-dark">
-				  <img src="https://icon2.cleanpng.com/20180626/ehy/kisspng-avatar-user-computer-icons-software-developer-5b327cc951ae22.8377289615300354013346.jpg" alt="Avatar">
-				  <p class="text-dark">Hello. How are you today?</p>
-				  <span class="time-right text-dark">11:00</span>
-				</div>
-				
-				<div class="container1 darker">
-				  <img src="https://img.favpng.com/8/9/5/vector-graphics-clip-art-avatar-computer-icons-image-png-favpng-maGsu9iBZTCk9dTVfC8FyHqDe.jpg" alt="Avatar" class="right">
-				  <p>Hey! I'm fine. Thanks for asking!</p>
-				  <span class="time-left">11:01</span>
-				</div>
-				
-				<div class="container1 text-dark">
-				  <img src="https://icon2.cleanpng.com/20180626/ehy/kisspng-avatar-user-computer-icons-software-developer-5b327cc951ae22.8377289615300354013346.jpg" alt="Avatar">
-				  <p class="text-dark">Sweet! So, what do you wanna do today?</p>
-				  <span class="time-right text-dark">11:02</span>
-				</div>
-				
-				<div class="container1 darker">
-				  <img src="https://img.favpng.com/8/9/5/vector-graphics-clip-art-avatar-computer-icons-image-png-favpng-maGsu9iBZTCk9dTVfC8FyHqDe.jpg" alt="Avatar" class="right">
-				  <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-				  <span class="time-left">11:05</span>
-				</div>
+	        
+	        
+    <!-- Start of main portion -->
+	        <div class="col-5 ms-4 bg-warning" id="main">
+	        	<h1>${server.name }</h1>
 	        </div>
+    <!-- ^^ end of main  -->
+
+
+
+
+
         </div>
+        
+        
+        
 	</div>
 </body>
 <script src="/js/script.js"></script>

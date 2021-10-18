@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import com.cohort.disqord.models.Channel;
+import com.cohort.disqord.models.Server;
 import com.cohort.disqord.models.User;
 import com.cohort.disqord.services.ChannelService;
+import com.cohort.disqord.services.ServerService;
 import com.cohort.disqord.services.UserService;
 
 @Controller
@@ -26,17 +28,23 @@ public class ChannelController {
     ChannelService channelServ;
 
     @Autowired
+    ServerService serverServ;
+
+    @Autowired
     UserService userService;
 
 
-    @GetMapping("/channels/new")
-    public String newChannel(@ModelAttribute("channel") Channel channel, HttpSession session, Model model) {
+    @GetMapping("/servers/{server_id}/channels/new")
+    public String newChannel(@ModelAttribute("channel") Channel channel,
+    		@PathVariable("server_id")Long server_id, HttpSession session, Model model) {
         if(session.getAttribute("uuid") == null) {
         return "redirect:/";
         } else {
             Long id = (Long) session.getAttribute("uuid");
             User user = userService.findById(id);
             model.addAttribute("user", user);
+            Server server = serverServ.findById(server_id);
+            model.addAttribute("server", server);
             return "newChannel.jsp";        	
         }
     }
