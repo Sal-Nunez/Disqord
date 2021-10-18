@@ -12,6 +12,8 @@ import com.cohort.disqord.models.LoginUser;
 import com.cohort.disqord.models.User;
 import com.cohort.disqord.repositories.UserRepository;
 
+import lombok.NonNull;
+
 
 @Service
 public class UserService {
@@ -97,6 +99,15 @@ public class UserService {
 	public User findById(Long id) {
     	Optional<User> user = userRepo.findById(id);
     	
+    	if (user.isPresent()) {
+    		return user.get();
+    	} else {
+    		return null;
+    	}
+	}
+
+	public User findByUserName(String userName) {
+		Optional<User> user = userRepo.findByUserName(userName);
     	if (user.isPresent()) {
     		return user.get();
     	} else {
