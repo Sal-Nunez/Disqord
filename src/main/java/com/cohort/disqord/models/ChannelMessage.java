@@ -1,5 +1,7 @@
 package com.cohort.disqord.models;
 
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -76,10 +78,27 @@ public class ChannelMessage {
 	
 	public String getTime() {
 		Date date = new Date();
-		System.out.println(date);
 		Date createdAt = this.createdAt;
 		Long milliseconds = (date.getTime() - createdAt.getTime());
-		System.out.println(milliseconds);
+		Long days = milliseconds/(1000*60*60*24) % 365;
+		SimpleDateFormat date_format = new SimpleDateFormat("hh:mm a");
+		String date1 = date_format.format(createdAt);
+		SimpleDateFormat date_format1 = new SimpleDateFormat("MM/dd/yyyy");
+		String date2 = date_format1.format(createdAt);
+		if (days == 0) {
+			return "Today at " + date1;
+		} else if (days == 1) {
+			return "Yesterday at " + date1;
+		} else {
+			return date2;
+		}
+	}
+	
+	
+	public String getDTime() {
+		Date date = new Date();
+		Date createdAt = this.createdAt;
+		Long milliseconds = (date.getTime() - createdAt.getTime());
 		Long seconds = milliseconds/1000 % 60;
 		Long minutes = milliseconds/1000 / 60 % 60;
 		Long hours = milliseconds/1000 / 60 / 60 % 24;
@@ -109,7 +128,5 @@ public class ChannelMessage {
 				return (days + " days ago");					
 			}
 		}
-	}
-	
-	
+	}	
 }

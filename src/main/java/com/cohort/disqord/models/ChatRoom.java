@@ -61,7 +61,7 @@ public class ChatRoom {
 			)
 	private List<User> chatRoomMembers;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="chatRoom", cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="chat_room_id", cascade=CascadeType.ALL)
 	private List<ChatMessage> chatMessages;
 	
 	

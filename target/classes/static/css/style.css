@@ -5,6 +5,24 @@
 	padding: 0px;
 }
 
+.dark-mode {
+	background-color: #1C1C1C;
+	color: #FAFAFF;
+}
+
+.light-mode {
+	background-color: #FAFAFF;
+	color: #1C1C1C;
+}
+
+.darkModeText {
+	color: #FAFAFF;
+}
+
+.lightModeText {
+	color: #1C1C1C;
+}
+
 .container1 {
   border: 2px solid #dedede;
   background-color: #DADDD8;
@@ -32,6 +50,28 @@
   border-radius: 50%;
 }
 
+.time {
+	color: grey !important;
+	font-size:.8rem;
+}
+
+.tooltiptimevisible {
+	visibility: visible !important;
+}
+
+.tooltiptime {
+	visibility: hidden;
+	width: 135px;
+	background-color: black;
+	color: white !important;
+	text-align: center;
+	border-radius: 6px;
+	padding: 0px 0px;
+	position: relative;
+	right: 100px;
+	bottom: 10px;
+}
+
 .container1 img.right {
   float: right;
   margin-left: 20px;
@@ -46,8 +86,4 @@
 .time-left {
   float: left;
   color: #999;
-}
-
-p{
-	font-size: 2rem;
 }
