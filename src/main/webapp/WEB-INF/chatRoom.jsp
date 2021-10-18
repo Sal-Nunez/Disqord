@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css"> <!-- change to match your file/naming structure -->
+    <link rel="stylesheet" href="/css/style.css">
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
@@ -38,7 +39,7 @@
             <li class="chat-message  text-white">
             <c:set var="firstLetter" value= "${ fn:substring(message.sender, 0, 1) }" />
             <i class="${message.sender }" ><c:out value="${ firstLetter }" /></i>
-            <span class="senderName text-white"> <c:out value="${message.sender}" /> </span>
+            <span class="senderName text-white"> <c:out value="${message.sender}" /> <span class="time"> <c:out value="${ message.time }" /> <span id="message${ message.id }" class="tooltiptime text-white"><c:out value="${ message.floatTime }" /></span></span> </span>
             <p class=" text-white"> <c:out value="${ message.content }" /> </p>            
             </li>
             </c:forEach>
