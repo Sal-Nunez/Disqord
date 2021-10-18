@@ -114,6 +114,21 @@ public class UserService {
     		return null;
     	}
 	}
+	
+	public User findByEmail(String email) {
+		Optional<User> user = userRepo.findByEmail(email);
+    	if (user.isPresent()) {
+    		return user.get();
+    	} else {
+    		return null;
+    	}
+	}
+
+	public void addFriend(User user, User friend) {
+		user.getFriends().add(friend);
+		
+	}
+
     
     
 }

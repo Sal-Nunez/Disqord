@@ -89,7 +89,6 @@ function onConnected() {
 
     // Tell your username to the server
 
-    connectingElement.classList.add('hidden');
 }
 
 
@@ -195,16 +194,3 @@ function getAvatarColor(messageSender) {
 }
 window.onload = connect;
 messageForm.addEventListener('submit', sendMessage, true)
-
-function darkMode() {
-  var checkBox = document.getElementById("flexSwitchCheckChecked");
-  var element = document.body;
-  var text = document.getElementsByClassName("darkModeText");
-  if (checkBox){
-    element.classList.toggle("dark-mode");
-    text.classList.toggle("lightModeText");
-  } else {
-		element.classList.toggle("light-mode");
-		text.classList.toggle("darkModeText");
-	}
-}
