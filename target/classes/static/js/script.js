@@ -194,3 +194,12 @@ function getAvatarColor(messageSender) {
 }
 window.onload = connect;
 messageForm.addEventListener('submit', sendMessage, true)
+
+function chatBar() {
+  var x = document.getElementById("chats");
+  if (x.className === "chatbar") {
+    x.className += " responsive";
+  } else {
+    x.className = "chatbar";
+  }
+}

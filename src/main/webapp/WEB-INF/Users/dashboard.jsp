@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css"> <!-- change to match your file/naming structure -->
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
@@ -25,7 +26,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/dashboard">Dashboard</a>
+                <a class="navbar-brand" href="/dashboard">Disqord</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -36,13 +37,45 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                Account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item bg-success" href="#">Add Friend</a></li>
                                 <li><a class="dropdown-item bg-danger" href="/logout">Logout</a></li>
                                 <li>
                             </ul>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Servers
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	        					<c:forEach var = "server" items = "${ user.servers }">
+		        					<li>
+			        				<a href="#" class="dropdown-item"><c:out value="${ server.name }" /></a>
+			        				</li>     		
+	        					</c:forEach>
+                    			<li class="icon-item">
+		        					<a href="servers/new" class="dropdown-item bg-success">+ New Server</a>
+		        				</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Chats
+                            </a>
+                    		<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+  	        					<c:forEach var="chatRoom" items="${ user.chatRooms }">
+	        						<li><a href="/chatRooms/${ chatRoom.id }" class="dropdown-item"><c:out value="${ chatRoom.name }" /></a></li>       
+	        					</c:forEach>
+                        		<li><a href="/chatRooms/new" class="dropdown-item bg-success">New Chat Room</a></li>
+                    		</ul>
                         </li>
                     </ul>
                     <div class="form-check form-switch me-4">
@@ -57,30 +90,9 @@
             </div>
         </nav>
         <div class="row mt-4">
-        	<div class="col-1" id="servers">
-        		<ul class="icon-list">
-	        		<c:forEach var = "server" items = "${ user.servers }">
-		        		<li class="icon-item">
-			        		<a href="#" class="btn rounded-circle border border-white icon-link mb-2 lightModeText"><c:out value="${ server.name }" /></a>
-			        	</li>     		
-	        		</c:forEach>
-	        		<li class="icon-item">
-		        		<a href="servers/new" class="btn btn-success mt-1 rounded-circle icon-link">+</a>
-		        	</li>
-        		</ul>
-        		<c:forEach var = "server" items = "${ user.serverMembers }">
-	        	<a href="#" class="btn btn-light mt-1"><c:out value="${ server.server.name }" /></a>        		
-        		</c:forEach>
-        	</div>
-	        <div class="main col-2 ms-4" id="chats">
-	        <c:forEach var="chatRoom" items="${ user.chatRooms }">
-	        	<a href="/chatRooms/${ chatRoom.id }" class="btn btn-light mt-1"><c:out value="${ chatRoom.name }" /></a>	        
-	        </c:forEach>
-	        	<a href="/chatRooms/new" class="btn btn-light mt-1">New Chat Room</a>	        
-	        </div>
-    <div id="chat-page" class="bg-dark col-8">
-        <div class="chat-container bg-dark">
-            <div class="chat-header bg-dark">
+    		<div id="chat-page" class="bg-dark">
+        		<div class="chat-container bg-dark">
+            		<div class="chat-header bg-dark">
                 <h2 class="bg-dark">Welcome ${user.fullName}</h2>
             </div>
             <ul id="messageArea" class="bg-dark">
