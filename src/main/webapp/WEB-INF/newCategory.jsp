@@ -17,32 +17,24 @@
 	<!-- For any Bootstrap that uses JS or jQuery-->
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<title>Create Channel</title>
+	<title>Create Category</title>
 </head>
 <body>
 <div class="container d-flex justify-content-center flex-column">
 	<div>
-	    <h1>Create Server Channel</h1>
+	    <h1>Create Server Category</h1>
 	    <a href="/dashboard" class="mt-2 btn btn-primary">Back to Dashboard</a>
 	    
-	    <form:form class="" action="/servers/${server.id}/newChannel" method="post" modelAttribute="channel">
+	    <form:form class="" action="/newCategory" method="post" modelAttribute="category">
 	        <form:input type="hidden" path="server" value="${server.id }"/>
 	        <div class="form-group">
-	            <label>Channel Name:</label>
+	            <label>Category Name:</label>
 	            <form:input path="name" class="form-control mb-3" />
 	            <form:errors path="name" class="text-danger" />
 	        </div>
-
-	       <div class="form-group">
-				<form:select path="category" class="form-control mb-3">
-					<form:option value="0">Channel Category (optional)</form:option>
-				    <c:forEach var="category" items="${categories}">
-					   <form:option path="category_id" value="${category.id}">${category.name }</form:option>
-				    </c:forEach>
-				</form:select>
-	       </div>
+	       
 	        
-	        <input type="submit" value="Create Channel" class="btn btn-primary" />
+	        <input type="submit" value="Create Category" class="btn btn-primary" />
 	    </form:form>
 	    
 	    <div>

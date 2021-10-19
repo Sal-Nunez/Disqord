@@ -57,6 +57,9 @@ public class Server {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="server", cascade=CascadeType.ALL)
 	private List<Role> roles;
+
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="server", cascade=CascadeType.ALL)
+	private List<Category> categories;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="server", cascade=CascadeType.ALL)
 	private List<ServerMember> serverMembers;

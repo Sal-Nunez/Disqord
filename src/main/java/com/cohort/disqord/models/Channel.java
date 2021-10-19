@@ -40,13 +40,8 @@ public class Channel {
 	
 	
 	@NonNull
-	@Pattern(regexp="^[a-zA-Z0-9]{2,20}$", message="Letters and numbers only. 2-20 characters.")
+	@Pattern(regexp="^[a-zA-Z0-9-]{2,20}$", message="Letters and numbers only. 2-20 characters.")
 	private String name;
-	
-	@NonNull
-	@Pattern(regexp="^[a-zA-Z0-9#$-]{2,20}$", message="Letters and numbers only. 2-20 characters.")
-	private String category;
-	
 	
 	private int channelLevel;
 	
@@ -78,7 +73,10 @@ public class Channel {
 	@OneToMany(mappedBy = "channel", fetch = FetchType.LAZY)
 	private List<ChannelMessage> channelMessages;
 
-
+	// a category can have many channels
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name = "category_id")
+	private Category category;
 	
 	
 }

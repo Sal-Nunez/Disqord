@@ -66,34 +66,17 @@
         		</c:forEach>
 	        	<a href="/servers/new" class="btn btn-success mt-1">+ Add a server</a>
         	</div>
-        	
-        	
-        	
 	        <div class="main col-1 ms-4" id="channels">
-		        <c:forEach var="channel" items="${ server.channels }">
-						<c:if test="${ channel.category.id == null }">
-				        	<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-light mt-1"><c:out value="${ channel.name }" /></a>	        
-						</c:if>
+	        	<c:forEach var="channel" items="${ server.channels }">
+		        	<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-light mt-1"><c:out value="${ channel.name }" /></a>	        
 		        </c:forEach>
-	        	<h5><b>Categories:</b></h5>
-	        	<c:forEach var="categ" items="${server.categories}">
-		        		<p class="text-secondary">#${categ.name }</p>
-	
-						<c:forEach var="channel" items="${ server.channels }">
-							<c:if test="${categ.id == channel.category.id }">
-					        	<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-light mt-1"><c:out value="${ channel.name }" /></a>	        
-							</c:if>
-			        </c:forEach >
-			        
-        		</c:forEach>
-		        	<a href="/servers/${server.id}/channels/new" class="btn btn-warning mt-1">New Channel</a>	        
-		        	<a href="/servers/${server.id}/categories/new" class="btn btn-primary mt-1">New Server Category</a>	        
+		        	<a href="/servers/${server.id}/channels/new" class="btn btn-light mt-1">New Channel</a>	        
 	        </div>
 	        
 	        
     <!-- Start of main portion -->
 	        <div class="col-5 ms-4 bg-warning" id="main">
-	        	<h1>${server.name }</h1>
+	        	<h1>${channel.name }</h1>
 	        </div>
     <!-- ^^ end of main  -->
 

@@ -1,13 +1,14 @@
 package com.cohort.disqord.repositories;
 
 import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.cohort.disqord.models.Channel;
+
+import com.cohort.disqord.models.Category;
 
 @Repository
-public interface ChannelRepository extends CrudRepository<Channel, Long>{
+public interface CategoryRepository extends CrudRepository<Category, Long>{
 
-	List<Channel> findAll();
-	
+	List<Category> findAll();
 }
