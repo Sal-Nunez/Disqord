@@ -6,6 +6,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +21,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.cohort.disqord.models.Category;
 import com.cohort.disqord.models.Channel;
+import com.cohort.disqord.models.ChannelMessage;
+import com.cohort.disqord.models.ChatMessage;
 import com.cohort.disqord.models.Server;
 import com.cohort.disqord.models.User;
 import com.cohort.disqord.services.CategoryService;
+import com.cohort.disqord.services.ChannelMessageService;
 import com.cohort.disqord.services.ChannelService;
 import com.cohort.disqord.services.ServerService;
 import com.cohort.disqord.services.UserService;
@@ -39,6 +45,9 @@ public class ChannelController {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    ChannelMessageService channelMessageServ;
 
 
     @GetMapping("/servers/{server_id}/channels/new")
@@ -77,7 +86,7 @@ public class ChannelController {
             return "newChannel.jsp";
         } else {
             channelServ.updateCreate(channel);
-            return "redirect:/dashboard";
+            return "redirect:/servers/" + server_id;
         }
     }
 
@@ -131,16 +140,30 @@ public class ChannelController {
         }
     }
 
-        @DeleteMapping("/channels/{id}")
-        public String deleteChannel(@PathVariable("id") Long channel_id, HttpSession session) {
-            Long id = (Long) session.getAttribute("uuid");
-            User user = userService.findById(id);
-            Channel channel = channelServ.findById(channel_id);
-            if(channel.getServer().getOwner() == user) {
-                channelServ.delete(channel_id);
-                return "redirect:/dashboard";
-                } else {
-                    return "redirect:/";
-                }
-        }
+    @DeleteMapping("/channels/{id}")
+    public String deleteChannel(@PathVariable("id") Long channel_id, HttpSession session) {
+        Long id = (Long) session.getAttribute("uuid");
+        User user = userService.findById(id);
+        Channel channel = channelServ.findById(channel_id);
+        if(channel.getServer().getOwner() == user) {
+            channelServ.delete(channel_id);
+            return "redirect:/dashboard";
+            } else {
+                return "redirect:/";
+            }
+    }
+    
+    @MessageMapping("/chat.sendMessage/channel/{id}")
+    @SendTo("/topic/public/channel/{id}")
+    public ChannelMessage sendMessage(@Payload ChannelMessage channelMessage, @PathVariable("id") String room) {
+    	channelMessageServ.updateCreate(channelMessage);
+        return channelMessage;
+    }
+        
+        
+        
+      
+        
+        
+        
 }
