@@ -90,8 +90,10 @@
         </nav>
     <div id="chat-page" class="bg-dark">
         <div class="chat-container bg-dark">
-            <div class="chat-header bg-dark">
+            <div class="chat-header bg-dark d-flex justify-content-between">
+            	<h2>${user.userName}</h2>
                 <h2 class="bg-dark">Welcome to ${chatRoom.name}</h2>
+                <a href="#" class="btn btn-outline-light " >Invite Friend</a>
             </div>
             <ul id="messageArea" class="bg-dark">
             	<c:forEach var="message" items="${ chatRoom.chatMessages }">

@@ -128,7 +128,12 @@ public class UserService {
 		user.getFriends().add(friend);
 		userRepo.save(user);
 	}
-
+	
+	// Ajax / friend search stuff
+	public List<User> ajaxSearch(String name){
+		List<User> result = userRepo.findByUserNameLike(name);
+		return result;
+	}
     
     
 }

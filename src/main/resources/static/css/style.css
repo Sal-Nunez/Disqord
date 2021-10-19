@@ -5,6 +5,14 @@
 	padding: 0px;
 }
 
+/* Temporary while I work on Modal - can be changed on merge to main branch */
+
+#search-modal{
+	color:black;
+}
+
+/*  */
+
 .dark-mode {
 	background-color: #1C1C1C !important; 
 	color: #FAFAFF !important;
