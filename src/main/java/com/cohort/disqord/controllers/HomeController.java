@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cohort.disqord.models.LoginUser;
 import com.cohort.disqord.models.User;
@@ -88,12 +88,16 @@ public class HomeController {
     	return "redirect:/";
     }
     
-    @PostMapping("/addFriend")
-    public String addFriend(Model model, HttpSession session, @RequestParam("friend_email") String email ) {
+    @GetMapping("/addFriend/{friendId}")
+    public String addFriend(Model model, HttpSession session, @PathVariable("friendId") Long friendId) {
     	User user = userServ.findById((long)session.getAttribute("uuid"));
-    	User friend = userServ.findByEmail(email);
-    	userServ.addFriend(user, friend);
-    	return "redirect:/dashboard";
+    	User friend = userServ.findById(friendId);
+    	if(user.getFriends().contains(friend)) {
+    		return "redirect:/dashboard";
+    	} else {
+    		userServ.addFriend(user, friend);
+    		return "redirect:/dashboard";    		
+    	}
     }
 
     

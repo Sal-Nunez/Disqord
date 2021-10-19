@@ -23,6 +23,31 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body onload="darkModeCheck()">
+	<!-- Friend Modal -->
+	<!-- Note: separate from main content - html is hidden until prompted  -->
+            <div class="modal fade" id="search-modal" role="dialog">
+                <div class="modal-s modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <form class="d-flex align-items-center" id="userSearchForm"> 
+                                <input class="form-control me-2" type="search" placeholder="Find a friend" aria-label="userSearch" id="userSearch" name="userSearch"> 
+                                <button class="btn btn-outline-success btn-sm" type="submit" id="userSearchBtn">Search</button>
+                            </form>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="search-results-container">
+                            <!-- HTML for search results added here using js -->
+                            <p class="h4">Results: <i></i></p>
+                            <ul class="list-group" id="userSearchResultsList">
+                                <!-- AJAX results go here -->
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
@@ -40,7 +65,7 @@
                                 Account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item bg-success" href="#">Add Friend</a></li>
+                                <li><a class="dropdown-item bg-success" href="#" id="navFriendBtn">Add Friend</a></li>
                                 <li><a class="dropdown-item bg-danger" href="/logout">Logout</a></li>
                                 <li>
                             </ul>
@@ -123,6 +148,7 @@
 </body>
 <script src="/js/darkMode.js"></script>
 <script src="/js/script.js"></script>
+<script src="/js/friendSearch.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </html>

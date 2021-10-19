@@ -268,3 +268,8 @@ button.accent {
         font-size: 1.1em;
     }
 }
+
+/* Modal stuff */ 
+#search-results-container{
+	display: none;
+}

@@ -3,7 +3,6 @@ package com.cohort.disqord.models;
 import java.util.Date;
 import java.util.List;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +26,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.cohort.disqord.annotations.ValidPassword;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -75,6 +75,7 @@ public class User {
 	@NotEmpty
     @NotNull
     @ValidPassword
+    @JsonIgnore
     private String password;
 	
 	@Transient
@@ -86,6 +87,7 @@ public class User {
 	
 	private String profilePic;
 	
+	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="user_chat_rooms",
@@ -93,9 +95,11 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name="chat_room_id"))
 	private List<ChatRoom> chatRooms;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ChatRoom> chatRoomsIOwn;
 	
+	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="friendships",
@@ -103,29 +107,31 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name="friend_id"))
 	private List<User> friends;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy="owner", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<Server> servers;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy="serverMember", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ServerMember> serverMembers;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ChannelMessage> channelMessages;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ChatMessage> chatMessages;
 	
 	
 	
 	
-	
+	@JsonIgnore
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createdAt;
-
+	
+	@JsonIgnore
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
 	
