@@ -55,7 +55,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 	        					<c:forEach var = "server" items = "${ user.servers }">
 		        					<li>
-			        				<a href="#" class="dropdown-item"><c:out value="${ server.name }" /></a>
+			        				<a href="/servers/${server.id}" class="dropdown-item"><c:out value="${ server.name }" /></a>
 			        				</li>     		
 	        					</c:forEach>
                     			<li class="icon-item">
@@ -93,7 +93,7 @@
     		<div id="chat-page" class="bg-dark">
         		<div class="chat-container bg-dark">
             		<div class="chat-header bg-dark">
-                <h2 class="bg-dark">Welcome ${user.fullName}</h2>
+                <h2 class="bg-dark">Welcome ${user.fullName}. Please select a server</h2>
             </div>
             <ul id="messageArea" class="bg-dark">
             <c:forEach var="message" items="${ chatRoom.chatMessages }">

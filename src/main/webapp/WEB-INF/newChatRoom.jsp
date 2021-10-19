@@ -17,10 +17,10 @@
 	<!-- For any Bootstrap that uses JS or jQuery-->
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<title>Title_name</title>
+	<title>New Chat Room</title>
 </head>
-<body>
-<div class="container d-flex justify-content-center flex-column">
+<body class="bg-dark mt-5 container d-flex justify-content-center" style="color: whitesmoke;">
+<div>
 	<div>
     <h1>Create a Chat Room</h1>
     <a href="/dashboard" class="mt-2 btn btn-primary">Back to Dashboard</a>
