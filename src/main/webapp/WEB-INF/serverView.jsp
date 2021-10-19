@@ -19,11 +19,11 @@
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body onload="darkModeCheck()">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Dashboard</a>
+                <a class="navbar-brand" href="/dashboard">Disqord</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                Account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item bg-success" href="#">Add Friend</a></li>
@@ -43,9 +43,53 @@
                             </ul>
                         </li>
                     </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Servers
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	        					<c:forEach var = "server" items = "${ user.servers }">
+		        					<li>
+			        				<a href="/servers/${server.id}" class="dropdown-item"><c:out value="${ server.name }" /></a>
+			        				</li>     		
+	        					</c:forEach>
+                    			<li class="icon-item">
+		        					<a href="servers/new" class="dropdown-item bg-success">+ New Server</a>
+		        				</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Channels
+                            </a>
+                    		<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<c:forEach var="channel" items="${ server.channels }">
+									<c:if test="${ channel.category.id == null }">
+				        				<a href="/servers/${server.id }/channels/${ channel.id }" class="dropdown-item"><c:out value="${ channel.name }" /></a>	        
+									</c:if>
+		        				</c:forEach>
+	        					<c:forEach var="categ" items="${server.categories}">
+		        					<b class="ps-2" style="font-size: 14pt;">${categ.name }</b>
+									<c:forEach var="channel" items="${ server.channels }">
+										<c:if test="${categ.id == channel.category.id }">
+					        				<a href="/servers/${server.id }/channels/${ channel.id }" class="dropdown-item"><c:out value="#${ channel.name }" /></a>	        
+										</c:if>
+			        				</c:forEach >
+			        
+        						</c:forEach>
+		        				<li><a href="/servers/${server.id}/channels/new" class="dropdown-item bg-success">+ New Channel</a></li>
+		        				<li><a href="/servers/${server.id}/categories/new" class="dropdown-item bg-success">+ New Server Category</a></li>
+                    		</ul>
+                        </li>
+                    </ul>
                     <div class="form-check form-switch me-4">
-  						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" onClick="darkMode()">
-  						<label class="form-check-label darkModeText" for="flexSwitchCheckChecked">Dark Mode</label>
+  						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" onClick="darkMode(); darkModeCheck();">
+  						<label class="form-check-label lightModeText" for="flexSwitchCheckChecked">Dark Mode</label>
 					</div>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -54,58 +98,11 @@
                 </div>
             </div>
         </nav>
-        
-        
-        <div class="main row">
-        	<div class="col-1" id="servers">
-        		<c:forEach var = "server" items = "${ user.servers }">
-	        	<a href="/servers/${ server.id }" class="btn btn-light mt-1"><c:out value="${ server.name }" /></a>        		
-        		</c:forEach>
-        		<c:forEach var = "server" items = "${ user.serverMembers }">
-	        	<a href="#" class="btn btn-light mt-1"><c:out value="${ server.server.name }" /></a>        		
-        		</c:forEach>
-	        	<a href="/servers/new" class="btn btn-success mt-1">+ Add a server</a>
-        	</div>
-        	
-        	
-        	
-	        <div class="main col-1 ms-4" id="channels">
-		        <c:forEach var="channel" items="${ server.channels }">
-						<c:if test="${ channel.category.id == null }">
-				        	<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-light mt-1"><c:out value="${ channel.name }" /></a>	        
-						</c:if>
-		        </c:forEach>
-	        	<h5><b>Categories:</b></h5>
-	        	<c:forEach var="categ" items="${server.categories}">
-		        		<p class="text-secondary">#${categ.name }</p>
-	
-						<c:forEach var="channel" items="${ server.channels }">
-							<c:if test="${categ.id == channel.category.id }">
-					        	<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-light mt-1"><c:out value="${ channel.name }" /></a>	        
-							</c:if>
-			        </c:forEach >
-			        
-        		</c:forEach>
-		        	<a href="/servers/${server.id}/channels/new" class="btn btn-warning mt-1">New Channel</a>	        
-		        	<a href="/servers/${server.id}/categories/new" class="btn btn-primary mt-1">New Server Category</a>	        
-	        </div>
-	        
-	        
-    <!-- Start of main portion -->
-	        <div class="col-5 ms-4 bg-warning" id="main">
-	        	<h1>${server.name }</h1>
-	        </div>
-    <!-- ^^ end of main  -->
-
-
-
-
-
+        <h2 class="bg-dark">Welcome ${user.fullName}. Please select a channel to start chatting</h2>
         </div>
-        
-        
-        
-	</div>
 </body>
 <script src="/js/script.js"></script>
+<script src="/js/darkMode.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </html>

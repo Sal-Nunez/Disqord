@@ -19,7 +19,7 @@
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 	<title>Create Channel</title>
 </head>
-<body>
+<body class="bg-dark mt-5 container d-flex justify-content-center" style="color: whitesmoke;">
 <div class="container d-flex justify-content-center flex-column">
 	<div>
 	    <h1>Create Server Channel</h1>
