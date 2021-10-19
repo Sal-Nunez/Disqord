@@ -70,7 +70,7 @@ public class Channel {
 	private Server server;
 	
 	// one chat room can have many messages
-	@OneToMany(mappedBy = "channel", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "channel_id", fetch = FetchType.LAZY)
 	private List<ChannelMessage> channelMessages;
 
 	// a category can have many channels

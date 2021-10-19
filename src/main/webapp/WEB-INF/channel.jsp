@@ -107,7 +107,7 @@
                 <h2 class="bg-dark">Welcome to ${channel.name} ${user.fullName}</h2>
             </div>
             <ul id="messageArea" class="bg-dark">
-            <c:forEach var="message" items="${ chatRoom.chatMessages }">
+            <c:forEach var="message" items="${ channel.channelMessages }">
             <li class="chat-message  text-white">
             <c:set var="firstLetter" value= "${ fn:substring(message.sender, 0, 1) }" />
             <i class="${message.sender }" ><c:out value="${ firstLetter }" /></i>
