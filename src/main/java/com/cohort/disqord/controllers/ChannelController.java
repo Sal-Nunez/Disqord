@@ -1,5 +1,7 @@
 package com.cohort.disqord.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.cohort.disqord.models.Category;
 import com.cohort.disqord.models.Channel;
 import com.cohort.disqord.models.Server;
 import com.cohort.disqord.models.User;
+import com.cohort.disqord.services.CategoryService;
 import com.cohort.disqord.services.ChannelService;
 import com.cohort.disqord.services.ServerService;
 import com.cohort.disqord.services.UserService;
@@ -26,6 +30,9 @@ public class ChannelController {
 
     @Autowired
     ChannelService channelServ;
+
+    @Autowired
+    CategoryService categoryServ;
 
     @Autowired
     ServerService serverServ;
@@ -43,17 +50,30 @@ public class ChannelController {
             Long id = (Long) session.getAttribute("uuid");
             User user = userService.findById(id);
             model.addAttribute("user", user);
+// Server id for assignment ============
             Server server = serverServ.findById(server_id);
             model.addAttribute("server", server);
+            
+// Get all categories for possible assignment ==========
+            List<Category> categories = categoryServ.findAll();
+            model.addAttribute("categories", categories);
             return "newChannel.jsp";        	
         }
     }
 
-    @PostMapping("/newChannel")
+    @PostMapping("/servers/{server_id}/newChannel")
     public String createChannel(
             @Valid @ModelAttribute("channel") Channel channel,
-            BindingResult result, HttpSession session) {
+            BindingResult result, HttpSession session, Model model, 
+            @PathVariable("server_id") Long server_id) {
         if (result.hasErrors()) {
+        	// Server id for assignment ============
+            Server server = serverServ.findById(server_id);
+            model.addAttribute("server", server);
+            // Get all categories for possible assignment ==========
+            List<Category> categories = categoryServ.findAll();
+            model.addAttribute("categories", categories);
+            
             return "newChannel.jsp";
         } else {
             channelServ.updateCreate(channel);
@@ -93,8 +113,8 @@ public class ChannelController {
         }
     }
 
-    @GetMapping("/channels/{id}")
-    public String channel(HttpSession session,
+    @GetMapping("/servers/{server_id}/channels/{id}")
+    public String channel(HttpSession session, @PathVariable("server_id")Long server_id,
             @PathVariable("id") Long channel_id,
             Model model) {
         if(session.getAttribute("uuid") == null) {
@@ -102,9 +122,11 @@ public class ChannelController {
         } else {
         Long user_id = (Long) session.getAttribute("uuid");
         User user = userService.findById(user_id);
+        model.addAttribute("user", user);
         Channel channel = channelServ.findById(channel_id);
         model.addAttribute("channel", channel);
-        model.addAttribute("user", user);
+        Server server = serverServ.findById(server_id);
+        model.addAttribute("server", server);
         return "channel.jsp";
         }
     }

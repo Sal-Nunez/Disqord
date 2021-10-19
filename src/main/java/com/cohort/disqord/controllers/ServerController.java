@@ -1,10 +1,7 @@
 package com.cohort.disqord.controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-
-import com.cohort.disqord.models.Channel;
 import com.cohort.disqord.models.Server;
 import com.cohort.disqord.models.ServerMember;
 import com.cohort.disqord.models.User;
@@ -119,10 +114,7 @@ public class ServerController {
         Server server = serverServ.findById(server_id);
         model.addAttribute("server", server);
         model.addAttribute("user", user);
-    // ======== Channel adds ===================
-//        List<Channel> channels = channelServ.findAll();
-//        model.addAttribute("channels", channels);
-//        
+   
         System.out.println(server.getChannels());
         return "serverView.jsp";
         }
