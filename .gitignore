@@ -28,3 +28,4 @@ hs_err_pid*
 >>>>>>> main
 target/classes/META-INF/maven/com.cohort.disqord/Disqord/pom.properties
 src/main/resources/application.properties
+target/classes/META-INF/maven/com.cohort.disqord/Disqord/pom.properties

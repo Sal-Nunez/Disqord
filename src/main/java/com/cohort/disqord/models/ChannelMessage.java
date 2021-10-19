@@ -2,6 +2,7 @@ package com.cohort.disqord.models;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
@@ -46,6 +48,12 @@ public class ChannelMessage {
 	@Column(columnDefinition="TEXT")
 	String content;
 
+	@Transient
+	private String sender;
+	
+	private int user_id;
+	private int channel_id;
+	
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdAt;
@@ -67,31 +75,42 @@ public class ChannelMessage {
 	
 	// channel can have many msgs
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "channel_id")
+	@JoinColumn(name = "channel")
 	private Channel channel;
 	
 	// user can create/send many msgs
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user")
 	private User user;
 
 	
 	public String getTime() {
 		Date date = new Date();
 		Date createdAt = this.createdAt;
-		Long milliseconds = (date.getTime() - createdAt.getTime());
-		Long days = milliseconds/(1000*60*60*24) % 365;
-		SimpleDateFormat date_format = new SimpleDateFormat("hh:mm a");
+		SimpleDateFormat date_format = new SimpleDateFormat("h:mm a");
 		String date1 = date_format.format(createdAt);
 		SimpleDateFormat date_format1 = new SimpleDateFormat("MM/dd/yyyy");
 		String date2 = date_format1.format(createdAt);
-		if (days == 0) {
+		String today = date_format1.format(date);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DATE, -1);
+		Date yesterdate = cal.getTime();
+		String yesterday = date_format1.format(yesterdate);
+		if (today.equals(date2)) {
 			return "Today at " + date1;
-		} else if (days == 1) {
+		} else if (yesterday.equals(date2)) {
 			return "Yesterday at " + date1;
 		} else {
 			return date2;
 		}
+	}
+	
+	public String getFloatTime() {
+		Date createdAt = this.createdAt;
+		SimpleDateFormat date_format = new SimpleDateFormat("EE, MMMM dd, yyyy h:mm a");
+		String date = date_format.format(createdAt);
+		return date;
 	}
 	
 	
@@ -128,5 +147,5 @@ public class ChannelMessage {
 				return (days + " days ago");					
 			}
 		}
-	}	
+	}
 }

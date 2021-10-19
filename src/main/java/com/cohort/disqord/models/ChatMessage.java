@@ -84,7 +84,6 @@ public class ChatMessage {
 		cal.add(Calendar.DATE, -1);
 		Date yesterdate = cal.getTime();
 		String yesterday = date_format1.format(yesterdate);
-		System.out.println(date2 + "\n" + yesterday);
 		if (today.equals(date2)) {
 			return "Today at " + date1;
 		} else if (yesterday.equals(date2)) {
@@ -104,10 +103,8 @@ public class ChatMessage {
 	
 	public String getDTime() {
 		Date date = new Date();
-		System.out.println(date);
 		Date createdAt = this.createdAt;
 		Long milliseconds = (date.getTime() - createdAt.getTime());
-		System.out.println(milliseconds);
 		Long seconds = milliseconds/1000 % 60;
 		Long minutes = milliseconds/1000 / 60 % 60;
 		Long hours = milliseconds/1000 / 60 / 60 % 24;

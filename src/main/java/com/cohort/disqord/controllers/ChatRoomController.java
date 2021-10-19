@@ -121,25 +121,25 @@ public class ChatRoomController {
         }
     }
 
-        @DeleteMapping("/chatRooms/{id}")
-        public String deleteChatRoom(@PathVariable("id") Long chatRoom_id, HttpSession session) {
-            Long id = (Long) session.getAttribute("uuid");
-            User user = userService.findById(id);
-            ChatRoom chatRoom = chatRoomServ.findById(chatRoom_id);
-            if (chatRoom.getUser() == user) {
-                chatRoomServ.delete(chatRoom_id);
-                return "redirect:/dashboard";
-            }
-            session.removeAttribute("uuid");
-            return "redirect:/";
-        }	
-    	
-        @MessageMapping("/chat.sendMessage/{room}/{id}")
-        @SendTo("/topic/public/{room}/{id}")
-        public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        	chatMessageServ.updateCreate(chatMessage);
-            return chatMessage;
+    @DeleteMapping("/chatRooms/{id}")
+    public String deleteChatRoom(@PathVariable("id") Long chatRoom_id, HttpSession session) {
+        Long id = (Long) session.getAttribute("uuid");
+        User user = userService.findById(id);
+        ChatRoom chatRoom = chatRoomServ.findById(chatRoom_id);
+        if (chatRoom.getUser() == user) {
+            chatRoomServ.delete(chatRoom_id);
+            return "redirect:/dashboard";
         }
+        session.removeAttribute("uuid");
+        return "redirect:/";
+    }	
+	
+    @MessageMapping("/chat.sendMessage/chat_room/{id}")
+    @SendTo("/topic/public/chat_room/{id}")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage, @PathVariable("id") String room) {
+    	chatMessageServ.updateCreate(chatMessage);
+        return chatMessage;
+    }
 
 
 

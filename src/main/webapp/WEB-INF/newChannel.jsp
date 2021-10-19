@@ -37,7 +37,7 @@
 				<form:select path="category" class="form-control mb-3">
 					<form:option value="0">Channel Category (optional)</form:option>
 				    <c:forEach var="category" items="${categories}">
-					   <form:option path="category_id" value="${category.id}">${category.name }</form:option>
+					   <form:option value="${category.id}">${category.name }</form:option>
 				    </c:forEach>
 				</form:select>
 	       </div>

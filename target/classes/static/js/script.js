@@ -30,7 +30,7 @@ for(let x=0; x<i.length; x++){
 }
 
 var stompClient = null;
-var username = null;
+var username = document.querySelector('#name').value.trim();
 var user_id = null;
 var chat_room_id = null;
 var channel_id = null;
@@ -59,7 +59,6 @@ function tooltiptimemouseout(e){
 }
 
 function connect(event) {
-    username = document.querySelector('#name').value.trim();
     user_id = document.querySelector('#user_id').value.trim();
     if(document.querySelector("#chat_room_id")){
     chat_room_id = document.querySelector('#chat_room_id').value.trim();	
@@ -67,7 +66,6 @@ function connect(event) {
     if(document.querySelector("#channel_id")){
     channel_id = document.querySelector('#channel_id').value.trim();	
     }
-    console.log(username, "***********************");
     if(username) {
 
         var socket = new SockJS('/ws');
@@ -82,7 +80,8 @@ function connect(event) {
 function onConnected() {
     // Subscribe to the Public Topic
     if(channel_id){
-	console.log("there is no channel id though right")
+	console.log("in on connect");
+	stompClient.subscribe('/topic/public/channel/' + channel_id, onMessageReceived);
 	} else if (chat_room_id){
     stompClient.subscribe('/topic/public/chat_room/' + chat_room_id, onMessageReceived);		
 	}
@@ -93,8 +92,7 @@ function onConnected() {
 
 
 function onError(error) {
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-    connectingElement.style.color = 'red';
+
 }
 
 
@@ -106,12 +104,16 @@ function sendMessage(event) {
             content: messageInput.value,
             type: 'CHAT',
             user_id: user_id,
-            chat_room_id: chat_room_id
+            chat_room_id: chat_room_id,
+            channel_id: channel_id
         };
-    if (document.querySelector("#chat_room_id")){
-	console.log("we in here")
+    console.log(username, "***********************");
+	console.log("SENDMESSAGE");
+    if (chat_room_id){
     stompClient.send("/app/chat.sendMessage/chat_room/" + chat_room_id, {}, JSON.stringify(chatMessage));	
-    }
+    } else if (channel_id){
+	stompClient.send("/app/chat.sendMessage/channel/" + channel_id, {}, JSON.stringify(chatMessage));
+	}
     messageInput.value = '';
     }
     event.preventDefault();
@@ -119,7 +121,9 @@ function sendMessage(event) {
 
 
 function onMessageReceived(payload) {
+	console.log("ONMESSAGERECEIVED");
     var message = JSON.parse(payload.body);
+    console.log(message, "MESSAGE")
 
     var messageElement = document.createElement('li');
 
@@ -136,6 +140,7 @@ function onMessageReceived(payload) {
         messageElement.classList.add('text-white');
 
         var avatarElement = document.createElement('i');
+        console.log(message.sender)
         var avatarText = document.createTextNode(message.sender[0]);
         avatarElement.appendChild(avatarText);
         avatarElement.style['background-color'] = getAvatarColor(message.sender);
