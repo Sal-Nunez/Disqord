@@ -5,6 +5,30 @@
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+	display: none;
+}
+
+.r-10 {
+	border-radius: 10px;
+}
+
+.brr-10 {
+	border-bottom-right-radius: 10px;
+}
+
+.blr-10 {
+	border-bottom-left-radius: 10px;
+}
+
+.trr-10 {
+	border-top-right-radius: 10px;
+}
+
+.tlr-10 {
+	border-top-left-radius: 10px;
+}
+
 .clearfix:after {
     display: block;
     content: "";
@@ -109,6 +133,7 @@ button.accent {
 #chat-page {
     position: relative;
     height: 100%;
+    border-radius: 10px;
 }
 
 .chat-container {
@@ -117,18 +142,22 @@ button.accent {
     background-color: #fff;
     box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
     margin-top: 30px;
-    height: 1000px;
+    height: 80vh;
     position: relative;
+    border-radius: 10px;
+
 }
 
 #chat-page ul {
     list-style-type: none;
     background-color: #FFF;
     margin: 0;
-    overflow: auto;
-    overflow-y: scroll;
     padding: 0 20px 0px 20px;
     height: calc(100% - 150px);
+}
+
+#messageArea {
+	overflow-y: auto;
 }
 
 #chat-page #messageForm {
@@ -202,10 +231,13 @@ button.accent {
     margin-left: 5px;
 }
 
+
 .chat-header {
     text-align: center;
     padding: 15px;
     border-bottom: 1px solid #ececec;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .chat-header h2 {
@@ -220,16 +252,6 @@ button.accent {
     position: absolute;
     top: 65px;
     width: 100%;
-}
-
-
-@media screen and (max-width: 730px) {
-
-    .chat-container {
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-top: 10px;
-    }
 }
 
 @media screen and (max-width: 480px) {

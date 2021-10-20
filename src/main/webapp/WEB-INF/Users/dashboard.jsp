@@ -49,18 +49,18 @@
                 </div>
             </div>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/dashboard">Disqord</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <a class="navbar-brand lightModeText" href="/dashboard">Disqord</a>
+                <button class="navbar-toggler light-mode" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class=""><span class="align-middle  lightModeText" style="font-size: 2rem;">&#9776</span></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle lightModeText" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Account
                             </a>
@@ -73,7 +73,7 @@
                     </ul>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle lightModeText" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Servers
                             </a>
@@ -91,7 +91,7 @@
                     </ul>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle lightModeText" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Chats
                             </a>
@@ -114,13 +114,12 @@
                 </div>
             </div>
         </nav>
-        <div class="row mt-4">
-    		<div id="chat-page" class="bg-dark">
-        		<div class="chat-container bg-dark">
-            		<div class="chat-header bg-dark">
-                <h2 class="bg-dark">Welcome ${user.fullName}. Please select a server</h2>
+    		<div id="chat-page" class="light-mode">
+        		<div class="chat-container light-mode">
+            		<div class="chat-header light-mode">
+                <h2 class="light-mode">Welcome ${user.fullName}. Please select a server</h2>
             </div>
-            <ul id="messageArea" class="bg-dark">
+            <ul id="messageArea" class="light-mode">
             <c:forEach var="message" items="${ chatRoom.chatMessages }">
             <li class="chat-message  text-white">
             <c:set var="firstLetter" value= "${ fn:substring(message.sender, 0, 1) }" />
@@ -144,7 +143,6 @@
     <input type="hidden" id="chat_room_id" value="${ chatRoom.id }" />
     <input type="hidden" id="user_id" value="${ user.id }" />
         </div>
-	</div>
 </body>
 <script src="/js/darkMode.js"></script>
 <script src="/js/script.js"></script>

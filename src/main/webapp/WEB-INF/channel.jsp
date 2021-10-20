@@ -23,13 +23,13 @@
 </head>
 <body onload="darkModeCheck()">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg light-mode">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/dashboard">Disqord</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"><img src="https://static.thenounproject.com/png/880223-200.png" alt="" /></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -100,19 +100,19 @@
                 </div>
             </div>
         </nav>
-                <div class="row mt-4">
-    		<div id="chat-page" class="bg-dark">
-        		<div class="chat-container bg-dark">
-            		<div class="chat-header bg-dark">
-                <h2 class="bg-dark">Welcome to ${channel.name} ${user.fullName}</h2>
+
+    		<div id="chat-page" class="light-mode">
+        		<div class="chat-container light-mode">
+            		<div class="chat-header light-mode">
+                <h2 class="light-mode">Welcome to ${channel.name} ${user.fullName}</h2>
             </div>
-            <ul id="messageArea" class="bg-dark">
-            <c:forEach var="message" items="${ chatRoom.chatMessages }">
-            <li class="chat-message  text-white">
+            <ul id="messageArea" class="light-mode">
+            <c:forEach var="message" items="${ channel.channelMessages }">
+            <li class="chat-message  lightModeText">
             <c:set var="firstLetter" value= "${ fn:substring(message.sender, 0, 1) }" />
             <i class="${message.sender }" ><c:out value="${ firstLetter }" /></i>
-            <span class="senderName text-white"> <c:out value="${message.sender}" /> <span class="time"> <c:out value="${ message.time }" /> <span id="message${ message.id }" class="tooltiptime text-white"><c:out value="${ message.floatTime }" /></span></span> </span>
-            <p class=" text-white"> <c:out value="${ message.content }" /> </p>            
+            <span class="senderName lightModeText"> <c:out value="${message.sender}" /> <span class="time"> <c:out value="${ message.time }" /> <span id="message${ message.id }" class="tooltiptime lightModeText"><c:out value="${ message.floatTime }" /></span></span> </span>
+            <p class=" lightModeText"> <c:out value="${ message.content }" /> </p>            
             </li>
             </c:forEach>
             </ul>
@@ -129,7 +129,6 @@
     <input type="hidden" id="name" value="${ user.userName }" />
     <input type="hidden" id="channel_id" value="${ channel.id }" />
     <input type="hidden" id="user_id" value="${ user.id }" />
-        </div>
 	</div>
 </body>
 <script src="/js/script.js"></script>

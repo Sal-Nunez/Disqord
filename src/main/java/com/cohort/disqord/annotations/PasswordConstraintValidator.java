@@ -47,7 +47,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
             return true;
         }
         ArrayList<String> messages = (ArrayList<String>) validator.getMessages(result);
-        for (var i = 0; i < messages.size(); i++) {
+        for (int i = 0; i < messages.size(); i++) {
         	context.buildConstraintViolationWithTemplate(messages.get(i) + "\n")
         	.addConstraintViolation()
         	.disableDefaultConstraintViolation();        	

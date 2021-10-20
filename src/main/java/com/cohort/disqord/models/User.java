@@ -116,7 +116,7 @@ public class User {
 	private List<ServerMember> serverMembers;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ChannelMessage> channelMessages;
 	
 	@JsonIgnore
