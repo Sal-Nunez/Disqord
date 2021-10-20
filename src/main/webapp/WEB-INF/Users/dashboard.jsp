@@ -49,7 +49,7 @@
                 </div>
             </div>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark blr-10 brr-10">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/dashboard">Disqord</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -114,7 +114,6 @@
                 </div>
             </div>
         </nav>
-        <div class="row mt-4">
     		<div id="chat-page" class="bg-dark">
         		<div class="chat-container bg-dark">
             		<div class="chat-header bg-dark">
@@ -144,7 +143,6 @@
     <input type="hidden" id="chat_room_id" value="${ chatRoom.id }" />
     <input type="hidden" id="user_id" value="${ user.id }" />
         </div>
-	</div>
 </body>
 <script src="/js/darkMode.js"></script>
 <script src="/js/script.js"></script>

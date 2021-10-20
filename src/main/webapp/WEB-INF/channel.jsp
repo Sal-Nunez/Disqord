@@ -100,7 +100,7 @@
                 </div>
             </div>
         </nav>
-                <div class="row mt-4">
+
     		<div id="chat-page" class="bg-dark">
         		<div class="chat-container bg-dark">
             		<div class="chat-header bg-dark">
@@ -129,7 +129,6 @@
     <input type="hidden" id="name" value="${ user.userName }" />
     <input type="hidden" id="channel_id" value="${ channel.id }" />
     <input type="hidden" id="user_id" value="${ user.id }" />
-        </div>
 	</div>
 </body>
 <script src="/js/script.js"></script>
