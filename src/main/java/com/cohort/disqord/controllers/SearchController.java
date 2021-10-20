@@ -3,11 +3,13 @@ package com.cohort.disqord.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +24,9 @@ public class SearchController {
 	@Autowired
 	UserService userServ;
 	
+//	AJAX ROUTES
 
-	
+//	Ajax search for friends
 	@PostMapping("/friends/search")
 	public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody SearchCriteria search, Errors errors){
 		
@@ -48,4 +51,19 @@ public class SearchController {
 		result.setResult(users);
 		
 		return ResponseEntity.ok(result);
-	}}
+	}
+	
+//	Find all friends for My Friends page
+	@GetMapping("/friends")
+	public ResponseEntity<?> getFriendsViaAjax(HttpSession session){
+		AjaxResponseBody result = new AjaxResponseBody();
+		
+		User user = userServ.findById((long)session.getAttribute("uuid"));
+		List<User> friends = user.getFriends();
+		
+		result.setResult(friends);
+		return ResponseEntity.ok(result);
+	}
+
+	
+}
