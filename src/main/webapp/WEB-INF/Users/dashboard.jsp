@@ -26,24 +26,19 @@
 	<!-- Friend Modal -->
 	<!-- Note: separate from main content - html is hidden until prompted  -->
             <div class="modal fade" id="search-modal" role="dialog">
-                <div class="modal-s modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-s modal-dialog lightModeText">
+                    <div class="modal-content light-mode">
                         <div class="modal-header">
                             <form class="d-flex align-items-center" id="userSearchForm"> 
                                 <input class="form-control me-2" type="search" placeholder="Find a friend" aria-label="userSearch" id="userSearch" name="userSearch"> 
                                 <button class="btn btn-outline-success btn-sm" type="submit" id="userSearchBtn">Search</button>
                             </form>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" id="search-results-container">
-                            <!-- HTML for search results added here using js -->
-                            <p class="h4">Results: <i></i></p>
-                            <ul class="list-group" id="userSearchResultsList">
                                 <!-- AJAX results go here -->
-                            </ul>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default lightModeText" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -65,6 +60,7 @@
                                 Account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#" id="navFriendBtn">My Friends</a></li>
                                 <li><a class="dropdown-item bg-success" href="#" id="navFriendBtn">Add Friend</a></li>
                                 <li><a class="dropdown-item bg-danger" href="/logout">Logout</a></li>
                                 <li>
