@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+	display: none;
+}
+
 .r-10 {
 	border-radius: 10px;
 }
@@ -154,12 +158,6 @@ button.accent {
 
 #messageArea {
 	overflow-y: auto;
-	overflow: -moz-scrollbars-none;
-	-ms-overflow-style: none;
-}
-
-#messageArea::webkit-scrollbar {
-	display: none;
 }
 
 #chat-page #messageForm {
