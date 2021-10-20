@@ -113,7 +113,7 @@
     		<div id="chat-page" class="light-mode">
         		<div class="chat-container light-mode">
             		<div class="chat-header light-mode">
-                <h2 class="light-mode">Welcome ${user.fullName}. Please select a server</h2>
+                <h2 class="light-mode">Welcome to Disqord ${user.fullName}. Please select a server</h2>
             </div>
             <ul id="messageArea" class="light-mode">
             <c:forEach var="message" items="${ chatRoom.chatMessages }">

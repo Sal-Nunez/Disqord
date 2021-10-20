@@ -58,7 +58,7 @@
 			        				</li>     		
 	        					</c:forEach>
                     			<li class="icon-item">
-		        					<a href="servers/new" class="dropdown-item bg-success">+ New Server</a>
+		        					<a href="/servers/new" class="dropdown-item bg-success">+ New Server</a>
 		        				</li>
                             </ul>
                         </li>
@@ -104,7 +104,7 @@
     		<div id="chat-page" class="light-mode">
         		<div class="chat-container light-mode">
             		<div class="chat-header light-mode">
-                <h2 class="light-mode">Welcome to ${channel.name} ${user.fullName}</h2>
+                <h2 class="light-mode">Welcome to the ${channel.name} channel ${user.fullName}</h2>
             </div>
             <ul id="messageArea" class="light-mode">
             <c:forEach var="message" items="${ channel.channelMessages }">
@@ -130,6 +130,19 @@
     <input type="hidden" id="channel_id" value="${ channel.id }" />
     <input type="hidden" id="user_id" value="${ user.id }" />
 	</div>
+	
+	
+    <c:if test="${user.id == server.owner.id}">
+		<div class="mt-3 d-flex text-center justify-content-center">	
+			<a class="mx-2 btn btn-primary" href="/servers/${server.id}/channels/${channel.id}/edit">Edit Channel</a>
+			
+			<form action="/channels/${channel.id}/delete" method="post">
+			    <input type="hidden" name="_method" value="delete">
+			    <input type="submit" class="mx-2 btn btn-danger" value="Delete Channel">
+			</form>			
+		</div>
+    </c:if>
+	
 </body>
 <script src="/js/script.js"></script>
 <script src="/js/darkMode.js"></script>

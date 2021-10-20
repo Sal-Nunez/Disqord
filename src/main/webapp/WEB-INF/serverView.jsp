@@ -56,7 +56,7 @@
 			        				</li>     		
 	        					</c:forEach>
                     			<li class="icon-item">
-		        					<a href="servers/new" class="dropdown-item bg-success">+ New Server</a>
+		        					<a href="/servers/new" class="dropdown-item bg-success">+ New Server</a>
 		        				</li>
                             </ul>
                         </li>
@@ -98,7 +98,7 @@
                 </div>
             </div>
         </nav>
-        <h2 class="bg-dark">Welcome ${user.fullName}. Please select a channel to start chatting</h2>
+        <h2 class="bg-dark">Welcome to ${server.name}, ${user.fullName}. Please select a channel to start chatting</h2>
         </div>
 </body>
 <script src="/js/script.js"></script>
