@@ -262,15 +262,7 @@ section {
   display: none;
 }
 
-@media screen and (max-width: 1000px) {
-  .chatbar a:not(:first-child) {display: none;}
-  .chatbar a.icon1 {
-    float: right;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 1000px) {
   .chatbar.responsive {position: relative;}
   .chatbar.responsive .icon1 {
     position: absolute;
@@ -283,3 +275,4 @@ section {
     text-align: left;
   }
 }
+

@@ -143,6 +143,7 @@ button.accent {
     box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
     margin-top: 30px;
     height: 80vh;
+    width: 80vw;
     position: relative;
     border-radius: 10px;
 
