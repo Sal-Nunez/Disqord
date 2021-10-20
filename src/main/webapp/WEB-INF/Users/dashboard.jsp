@@ -43,15 +43,14 @@
                     </div>
                 </div>
             </div>
-    <div class="container">
+    <div class="container-fluid">
         <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
-            <div class="container">
-                <a class="navbar-brand lightModeText" href="/dashboard">Disqord</a>
-                <button class="navbar-toggler light-mode" type="button" data-bs-toggle="collapse"
+                		        <button class="navbar-toggler light-mode" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="align-middle  lightModeText" style="font-size: 2rem;">&#9776</span>
+                    <span class="align-top  lightModeText" style="font-size: 2rem;">&#9776</span>
                 </button>
+                <a class="navbar-brand lightModeText" href="/dashboard">Disqord</a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
@@ -75,25 +74,26 @@
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
-            </div>
         </nav>
     		<div id="chat-page" class="light-mode">
-        <div class="">
-        	<div class="d-flex flex-row">
-		        	<div class="flex-column">
-			        	<h1 class="me-5">Chats</h1>
-			        	<div class="d-flex flex-column">
-							<c:forEach var="chatRoom" items="${ user.chatRooms }">
-							<a href="/chatRooms/${ chatRoom.id }" class="btn btn-primary lightModeText mb-3"><c:out value="${ chatRoom.name }" /></a>    
-							</c:forEach>
-			        	</div>
-		        		<h1 class="me-5">Servers</h1>
+        <div class="d-flex">
+        	<div class="d-flex flex-row align-items-start">
+		        <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
+                <div class="collapse navbar-collapse align-items-start" id="navbarSupportedContent">
+		        	<div class="d-flex flex-column">
+			        	<h1 class="me-5">Servers</h1>
+			        		<c:forEach var = "server" items = "${ user.servers }">
+				        	<a href="/servers/${server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ server.name }" /></a>    		
+		        			</c:forEach>
+		        		</div>
 		        		<div class="d-flex flex-column">
-		        		<c:forEach var = "server" items = "${ user.servers }">
-			        	<a href="/servers/${server.id}" class="btn btn-primary lightModeText mb-3"><c:out value="${ server.name }" /></a>    		
-	        			</c:forEach>
+		        		<h1 class="me-5">Chats</h1>
+		        			<c:forEach var="chatRoom" items="${ user.chatRooms }">
+							<a href="/chatRooms/${ chatRoom.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ chatRoom.name }" /></a>    
+							</c:forEach>
 	        			</div>
 		        	</div>
+		        	</nav>
 	        		<div class="chat-container light-mode">
 	            		<div class="chat-header light-mode d-flex justify-content-between">
 	                <h2>${user.userName}</h2>
@@ -119,6 +119,7 @@
 	                </div>
 	            </form>
 	        </div>
+        </div>
         </div>
     </div>
     <input type="hidden" id="name" value="${ user.userName }" />
