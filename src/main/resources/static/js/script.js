@@ -150,7 +150,16 @@ function onMessageReceived(payload) {
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(message.sender + " ");
         usernameElement.appendChild(usernameText);
-        usernameElement.classList.add('text-white');
+	    var textElement = document.createElement('p');
+	    if (localStorage.getItem('theme') == "light-mode") {
+	    textElement.classList.add('lightModeText');
+        usernameElement.classList.add('lightModeText');		
+		} else {
+	    textElement.classList.add('lightModeText');
+        usernameElement.classList.add('lightModeText');		
+	    textElement.classList.add('darkModeText');
+        usernameElement.classList.add('darkModeText');
+		}
         messageElement.appendChild(usernameElement);
         var time = document.createTextNode(message.time);
         var timeElement = document.createElement('span');
@@ -173,8 +182,6 @@ function onMessageReceived(payload) {
 	})
     }
 
-    var textElement = document.createElement('p');
-    textElement.classList.add('text-white');
     var messageText = document.createTextNode(message.content);
     textElement.appendChild(messageText);
 

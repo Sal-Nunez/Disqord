@@ -49,7 +49,7 @@
                 </div>
             </div>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark blr-10 brr-10">
+        <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/dashboard">Disqord</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -114,12 +114,12 @@
                 </div>
             </div>
         </nav>
-    		<div id="chat-page" class="bg-dark">
-        		<div class="chat-container bg-dark">
-            		<div class="chat-header bg-dark">
-                <h2 class="bg-dark">Welcome ${user.fullName}. Please select a server</h2>
+    		<div id="chat-page" class="light-mode">
+        		<div class="chat-container light-mode">
+            		<div class="chat-header light-mode">
+                <h2 class="light-mode">Welcome ${user.fullName}. Please select a server</h2>
             </div>
-            <ul id="messageArea" class="bg-dark">
+            <ul id="messageArea" class="light-mode">
             <c:forEach var="message" items="${ chatRoom.chatMessages }">
             <li class="chat-message  text-white">
             <c:set var="firstLetter" value= "${ fn:substring(message.sender, 0, 1) }" />
