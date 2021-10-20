@@ -76,7 +76,7 @@
 			        				</li>     		
 	        					</c:forEach>
                     			<li class="icon-item">
-		        					<a href="servers/new" class="dropdown-item bg-success">+ New Server</a>
+		        					<a href="/servers/new" class="dropdown-item bg-success">+ New Server</a>
 		        				</li>
                             </ul>
                         </li>
