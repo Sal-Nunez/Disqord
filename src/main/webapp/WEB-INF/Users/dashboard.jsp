@@ -112,8 +112,10 @@
         </nav>
     		<div id="chat-page" class="light-mode">
         		<div class="chat-container light-mode">
-            		<div class="chat-header light-mode">
+            		<div class="chat-header light-mode d-flex justify-content-between">
+                <h2>${user.userName}</h2>
                 <h2 class="light-mode">Welcome ${user.fullName}. Please select a server</h2>
+                <a href="#" class="btn btn-outline-light lightModeText" >Invite Friend</a>
             </div>
             <ul id="messageArea" class="light-mode">
             <c:forEach var="message" items="${ chatRoom.chatMessages }">

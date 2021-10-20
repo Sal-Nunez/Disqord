@@ -25,7 +25,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg light-mode">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/dashboard">Disqord</a>
+                <a class="navbar-brand lightModeText" href="/dashboard">Disqord</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle lightModeText" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Account
                             </a>
@@ -47,7 +47,7 @@
                     </ul>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle lightModeText" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Servers
                             </a>
@@ -65,7 +65,7 @@
                     </ul>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle lightModeText" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Channels
                             </a>
@@ -103,8 +103,10 @@
 
     		<div id="chat-page" class="light-mode">
         		<div class="chat-container light-mode">
-            		<div class="chat-header light-mode">
+            		<div class="chat-header light-mode d-flex justify-content-between">
+                <h2>${user.userName}</h2>
                 <h2 class="light-mode">Welcome to ${channel.name} ${user.fullName}</h2>
+                <a href="#" class="btn btn-outline-light lightModeText" >Invite Friend</a>
             </div>
             <ul id="messageArea" class="light-mode">
             <c:forEach var="message" items="${ channel.channelMessages }">

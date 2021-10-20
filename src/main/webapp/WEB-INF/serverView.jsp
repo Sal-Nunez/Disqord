@@ -23,7 +23,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/dashboard">Disqord</a>
+                <a class="navbar-brand lightModeText" href="/dashboard">Disqord</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -98,7 +98,11 @@
                 </div>
             </div>
         </nav>
-        <h2 class="bg-dark">Welcome ${user.fullName}. Please select a channel to start chatting</h2>
+        <div class="chat-header light-mode d-flex justify-content-between">
+        <h2>${user.userName}</h2>
+        <h2 class="light-mode">Welcome ${user.fullName}. Please select a channel to start chatting</h2>
+        <a href="#" class="btn btn-outline-light lightModeText" >Invite Friend</a>
+        </div>
         </div>
 </body>
 <script src="/js/script.js"></script>

@@ -91,7 +91,7 @@
             <div class="chat-header light-mode d-flex justify-content-between">
             	<h2>${user.userName}</h2>
                 <h2 class="light-mode">Welcome to ${chatRoom.name}</h2>
-                <a href="#" class="btn btn-outline-light " >Invite Friend</a>
+                <a href="#" class="btn btn-outline-light lightModeText" >Invite Friend</a>
             </div>
             <ul id="messageArea" class="light-mode">
             	<c:forEach var="message" items="${ chatRoom.chatMessages }">
