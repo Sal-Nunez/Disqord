@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-    <div class="container">
+    <div class="container-fluid">
         <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
             <div class="container-fluid">
                 <a class="navbar-brand lightModeText" href="/dashboard">Disqord</a>
@@ -65,50 +65,6 @@
                             </ul>
                         </li>
                     </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle lightModeText" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Servers
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	        					<c:forEach var = "server" items = "${ user.servers }">
-		        					<li>
-			        				<a href="/servers/${server.id}" class="dropdown-item"><c:out value="${ server.name }" /></a>
-			        				</li>     		
-	        					</c:forEach>
-                    			<li class="icon-item">
-		        					<a href="/servers/new" class="dropdown-item bg-success">+ New Server</a>
-		        				</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle lightModeText" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Channels
-                            </a>
-                    		<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<c:forEach var="channel" items="${ server.channels }">
-									<c:if test="${ channel.category.id == null }">
-				        				<a href="/servers/${server.id }/channels/${ channel.id }" class="dropdown-item"><c:out value="${ channel.name }" /></a>	        
-									</c:if>
-		        				</c:forEach>
-	        					<c:forEach var="categ" items="${server.categories}">
-		        					<b class="ps-2" style="font-size: 14pt;">${categ.name }</b>
-									<c:forEach var="channel" items="${ server.channels }">
-										<c:if test="${categ.id == channel.category.id }">
-					        				<a href="/servers/${server.id }/channels/${ channel.id }" class="dropdown-item"><c:out value="#${ channel.name }" /></a>	        
-										</c:if>
-			        				</c:forEach >
-			        
-        						</c:forEach>
-		        				<li><a href="/servers/${server.id}/channels/new" class="dropdown-item bg-success">+ New Channel</a></li>
-		        				<li><a href="/servers/${server.id}/categories/new" class="dropdown-item bg-success">+ New Server Category</a></li>
-                    		</ul>
-                        </li>
-                    </ul>
                     <div class="form-check form-switch me-4">
   						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" onClick="darkMode(); darkModeCheck();">
   						<label class="form-check-label lightModeText" for="flexSwitchCheckChecked">Dark Mode</label>
@@ -120,13 +76,45 @@
                 </div>
             </div>
         </nav>
-
+		        	<div class="d-flex">
+		        	<div class="d-flex flex-row align-items-start">
+		        <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
+                <div class="collapse navbar-collapse align-items-start" id="navbarSupportedContent">
+		        	<div class="d-flex flex-column">
+			        	<h1 class="me-5">Servers</h1>
+			        		<c:forEach var = "server" items = "${ user.servers }">
+				        	<a href="/servers/${server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ server.name }" /></a>    		
+		        			</c:forEach>
+		        			<a href="/servers/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server</a>
+		        		</div>
+		        		<div class="d-flex flex-column me-5">
+		        					<h1>Categories</h1>
+		        					<c:forEach var="channel" items="${ server.channels }">
+									<c:if test="${ channel.category.id == null }">
+				        				<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ channel.name }" /></a>	        
+									</c:if>
+		        				</c:forEach>
+	        					<c:forEach var="categ" items="${server.categories}">
+		        					<b class="ps-2" style="font-size: 14pt;">${categ.name }</b>
+									<c:forEach var="channel" items="${ server.channels }">
+										<c:if test="${categ.id == channel.category.id }">
+					        				<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="#${ channel.name }" /></a>	        
+										</c:if>
+			        				</c:forEach >
+        						</c:forEach>
+        						<a href="/servers/${server.id}/categories/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server Category</a>
+        						<a href="/servers/${server.id}/channels/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Channel</a>
+		        		</div>
+		        	</div>
+		        	</nav>
+		        	</div>
     		<div id="chat-page" class="light-mode">
-        		<div class="chat-container light-mode">
+        		<div class="chat-container light-mode mt-2">
             		<div class="chat-header light-mode d-flex justify-content-between">
                 <h2>${user.userName}</h2>
                 <h2 class="light-mode">Welcome to ${channel.name} ${user.fullName}</h2>
                 <a href="#" class="btn btn-outline-light lightModeText" >Invite Friend</a>
+            </div>
             </div>
             <ul id="messageArea" class="light-mode">
             <c:forEach var="message" items="${ channel.channelMessages }">
@@ -147,11 +135,11 @@
                 </div>
             </form>
         </div>
-    </div>
     <input type="hidden" id="name" value="${ user.userName }" />
     <input type="hidden" id="channel_id" value="${ channel.id }" />
     <input type="hidden" id="user_id" value="${ user.id }" />
 	</div>
+    </div>
 	
 	
     <c:if test="${user.id == server.owner.id}">

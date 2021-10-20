@@ -85,12 +85,14 @@
 			        		<c:forEach var = "server" items = "${ user.servers }">
 				        	<a href="/servers/${server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ server.name }" /></a>    		
 		        			</c:forEach>
+		        			<a href="/servers/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server</a>
 		        		</div>
 		        		<div class="d-flex flex-column">
 		        		<h1 class="me-5">Chats</h1>
 		        			<c:forEach var="chatRoom" items="${ user.chatRooms }">
 							<a href="/chatRooms/${ chatRoom.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ chatRoom.name }" /></a>    
 							</c:forEach>
+	        			<a href="/chatRooms/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Chat</a>
 	        			</div>
 		        	</div>
 		        	</nav>
