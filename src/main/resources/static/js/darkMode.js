@@ -7,6 +7,7 @@ element.classList.add("lightModeText");
 
 function darkMode() {
 	text = document.querySelectorAll(".lightModeText");
+	background = document.querySelectorAll(".light-mode");
 	if (checkBox.checked) {
 		element.classList.add("dark-mode");
 		background.forEach(e => {
@@ -33,6 +34,9 @@ function darkMode() {
 }
 
 function darkModeCheck() {
+	console.log("darkModeCheck called")
+	text = document.querySelectorAll(".lightModeText");
+	background = document.querySelectorAll(".light-mode");
 	if (localStorage.getItem('theme') == "dark-mode") {
 		element.classList.add("dark-mode");
 		background.forEach(e => {

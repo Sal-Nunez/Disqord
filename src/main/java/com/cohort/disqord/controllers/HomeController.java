@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -88,7 +89,8 @@ public class HomeController {
     	return "redirect:/";
     }
     
-    @GetMapping("/addFriend/{friendId}")
+//  Add friend
+    @GetMapping("/friends/add/{friendId}")
     public String addFriend(Model model, HttpSession session, @PathVariable("friendId") Long friendId) {
     	User user = userServ.findById((long)session.getAttribute("uuid"));
     	User friend = userServ.findById(friendId);
@@ -99,6 +101,18 @@ public class HomeController {
     		return "redirect:/dashboard";    		
     	}
     }
-
+    
+//	Remove friend
+    @DeleteMapping("/friends/remove/{friendId}")
+    public String removeFriend(HttpSession session, @PathVariable("friendId") Long friendId) {
+    	User user = userServ.findById((long)session.getAttribute("uuid"));
+    	User friend = userServ.findById(friendId);
+    	if(user.getFriends().contains(friend)) {
+    		userServ.removeFriend(user, friend);
+    		return "redirect:/dashboard";
+    	} else {
+    		return "redirect:/dashboard";    		
+    	}
+    }
     
 }

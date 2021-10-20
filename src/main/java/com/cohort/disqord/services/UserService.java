@@ -12,8 +12,6 @@ import com.cohort.disqord.models.LoginUser;
 import com.cohort.disqord.models.User;
 import com.cohort.disqord.repositories.UserRepository;
 
-import lombok.NonNull;
-
 
 @Service
 public class UserService {
@@ -123,9 +121,15 @@ public class UserService {
     		return null;
     	}
 	}
-
+	
+	// Friends
 	public void addFriend(User user, User friend) {
 		user.getFriends().add(friend);
+		userRepo.save(user);
+	}
+	
+	public void removeFriend(User user, User friend) {
+		user.getFriends().remove(friend);
 		userRepo.save(user);
 	}
 	
