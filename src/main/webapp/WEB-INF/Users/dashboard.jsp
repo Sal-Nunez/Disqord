@@ -82,8 +82,8 @@
                 <div class="collapse navbar-collapse align-items-start" id="navbarSupportedContent">
 		        	<div class="d-flex flex-column">
 			        	<h1 class="me-5">Servers</h1>
-			        		<c:forEach var = "server" items = "${ user.servers }">
-				        	<a href="/servers/${server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ server.name }" /></a>    		
+			        		<c:forEach var = "memberOf" items = "${ user.memberOf}">
+				        	<a href="/servers/${memberOf.server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ memberOf.server.name}" /></a>    		
 		        			</c:forEach>
 		        			<a href="/servers/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server</a>
 		        		</div>

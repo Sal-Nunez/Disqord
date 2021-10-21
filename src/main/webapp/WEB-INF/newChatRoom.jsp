@@ -4,8 +4,8 @@
 <%@ page import = "java.io.*,java.util.*, javax.servlet.*" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isErrorPage="true" %>  
-
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">

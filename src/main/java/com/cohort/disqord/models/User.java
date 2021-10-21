@@ -114,7 +114,7 @@ public class User {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="serverMember", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<ServerMember> serverMembers;
+	private List<ServerMember> memberOf;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
