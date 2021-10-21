@@ -113,6 +113,12 @@
         	</div>
         </div>
       </div>
+  </div>
+    <c:if test="${user.id == server.owner.id}">
+		<div class="mt-3 d-flex text-center justify-content-center">	
+			<a class="mx-2 btn btn-primary" href="/servers/${server.id}/categories/edit">Edit Server Categories</a>	
+		</div>
+    </c:if>
       </div>
     <input type="hidden" id="name" value="${ user.userName }" />
     <input type="hidden" id="chat_room_id" value="${ chatRoom.id }" />
