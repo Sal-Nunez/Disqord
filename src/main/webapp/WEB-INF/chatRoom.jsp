@@ -22,6 +22,26 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body onload="darkModeCheck()">
+	<!-- Modal - used for both invite and add friends -->
+	<!-- Note: separate from main content - html is hidden until prompted  -->
+            <div class="modal fade" id="search-modal" role="dialog">
+                <div class="modal-s modal-dialog lightModeText">
+                    <div class="modal-content light-mode">
+                        <div class="modal-header" id="searchModalHeader">
+                            <form class="d-flex align-items-center" id="userSearchForm"> 
+                                <input class="form-control me-2" type="search" placeholder="Add user by username" aria-label="userSearch" id="userSearch" name="userSearch"> 
+                                <button class="btn btn-outline-success btn-sm" type="submit" id="userSearchBtn">Search</button>
+                            </form>
+                        </div>
+                        <div class="modal-body" id="search-results-container">
+                                <!-- AJAX results go here -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default lightModeText" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     <div class="container">
         <nav class="navbar navbar-expand-lg light-mode">
             <div class="container-fluid">
@@ -39,7 +59,7 @@
                                 Account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item bg-success" href="#">Add Friend</a></li>
+                                <li><a class="dropdown-item bg-success" href="#" id="navFriendBtn">Add Friend</a></li>
                                 <li><a class="dropdown-item bg-danger" href="/logout">Logout</a></li>
                             </ul>
                     </ul>
@@ -91,7 +111,7 @@
             <div class="chat-header light-mode d-flex justify-content-between">
             	<h2>${user.userName}</h2>
                 <h2 class="light-mode">Welcome to ${chatRoom.name}</h2>
-                <a href="#" class="btn btn-outline-light " >Invite Friend</a>
+                <a href="#" class="btn btn-outline-light " id="inviteFriendBtn">Invite Friend</a>
             </div>
             <ul id="messageArea" class="light-mode">
             	<c:forEach var="message" items="${ chatRoom.chatMessages }">
@@ -120,6 +140,7 @@
 </body>
 <script src="/js/darkMode.js"></script>
 <script src="/js/script.js"></script>
+<script src="/js/friendSearch.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </html>
