@@ -27,6 +27,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.cohort.disqord.annotations.ValidPassword;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +35,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name="users")
 @Getter

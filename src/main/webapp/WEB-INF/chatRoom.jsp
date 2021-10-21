@@ -22,14 +22,17 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body onload="darkModeCheck()">
-    	<!-- Friend Modal -->
+
+	<!-- Modal - used for both invite and add friends -->
 	<!-- Note: separate from main content - html is hidden until prompted  -->
             <div class="modal fade" id="search-modal" role="dialog">
                 <div class="modal-s modal-dialog lightModeText">
                     <div class="modal-content light-mode">
-                        <div class="modal-header">
+
+                        <div class="modal-header" id="searchModalHeader">
                             <form class="d-flex align-items-center" id="userSearchForm"> 
-                                <input class="form-control me-2" type="search" placeholder="Find a friend" aria-label="userSearch" id="userSearch" name="userSearch"> 
+                                <input class="form-control me-2" type="search" placeholder="Add user by username" aria-label="userSearch" id="userSearch" name="userSearch"> 
+
                                 <button class="btn btn-outline-success btn-sm" type="submit" id="userSearchBtn">Search</button>
                             </form>
                         </div>
@@ -42,8 +45,10 @@
                     </div>
                 </div>
             </div>
+
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
+
             <div class="container-fluid">
                 <a class="navbar-brand lightModeText" href="/dashboard">Disqord</a>
                 <button class="navbar-toggler light-mode" type="button" data-bs-toggle="collapse"
@@ -100,7 +105,7 @@
             <div class="chat-header light-mode d-flex justify-content-between">
             	<h2>${user.userName}</h2>
                 <h2 class="light-mode">Welcome to ${chatRoom.name}</h2>
-                <a href="#" class="btn btn-outline-light lightModeText" >Invite Friend</a>
+                <a href="#" class="btn btn-outline-light " id="inviteFriendBtn">Invite Friend</a>
             </div>
             <ul id="messageArea" class="light-mode">
             	<c:forEach var="message" items="${ chatRoom.chatMessages }">
