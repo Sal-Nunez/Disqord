@@ -37,4 +37,9 @@ public class ServerMemberService {
 		serverMemberRepo.deleteById(id);
 	}
 
+	public ServerMember findByUserIdAndServerId(Long userId, Long serverId) {
+		return serverMemberRepo.getServerMemberByUserIdAndServerId(userId, serverId);
+	}
+	
+	
 }

@@ -85,8 +85,8 @@
                 <div class="collapse navbar-collapse align-items-start" id="navbarSupportedContent">
 		        	<div class="d-flex flex-column">
 			        	<h1 class="me-5">Servers</h1>
-			        		<c:forEach var = "server" items = "${ user.servers }">
-				        	<a href="/servers/${server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ server.name }" /></a>    		
+			        		<c:forEach var = "server" items = "${ user.memberOf }">
+				        	<a href="/servers/${server.server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ server.server.name }" /></a>    		
 		        			</c:forEach>
 		        			<a href="/servers/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server</a>
 		        		</div>
@@ -136,6 +136,7 @@
 <script src="/js/darkMode.js"></script>
 <script src="/js/script.js"></script>
 <script src="/js/friendSearch.js"></script>
+<script src="/js/chatRoomInvite.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </html>

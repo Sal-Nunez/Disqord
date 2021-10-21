@@ -25,7 +25,7 @@
             <div class="modal fade" id="search-modal" role="dialog">
                 <div class="modal-s modal-dialog lightModeText">
                     <div class="modal-content light-mode">
-                        <div class="modal-header">
+                        <div class="modal-header" id="searchModalHeader">
                             <form class="d-flex align-items-center" id="userSearchForm"> 
                                 <input class="form-control me-2" type="search" placeholder="Find a friend" aria-label="userSearch" id="userSearch" name="userSearch"> 
                                 <button class="btn btn-outline-success btn-sm" type="submit" id="userSearchBtn">Search</button>
@@ -80,8 +80,8 @@
                 <div class="collapse navbar-collapse align-items-start" id="navbarSupportedContent">
 		        	<div class="d-flex flex-column">
 			        	<h1 class="me-5">Servers</h1>
-			        		<c:forEach var = "server" items = "${ user.servers }">
-				        	<a href="/servers/${server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ server.name }" /></a>    		
+			        		<c:forEach var = "server" items = "${ user.memberOf }">
+				        	<a href="/servers/${server.server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ server.server.name }" /></a>    		
 		        			</c:forEach>
 		        			<a href="/servers/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server</a>
 		        		</div>
@@ -107,17 +107,22 @@
 		        	</nav>
 		        	</div>
         <div class="chat-container light-mode mt-2">
-        	<div class="chat-header light-mode d-flex justify-content-between">
-        	<h2 class="light-mode me-3">Welcome to ${server.name}. Please select a channel to start chatting</h2>
-        	<a href="#" class="btn btn-outline-light lightModeText">Invite Friend</a>
+        	<div class="chat-header light-mode d-flex justify-content-between align-items-center">
+	        	<h2 class="light-mode me-3">Welcome to ${server.name}. Please select a channel to start chatting</h2>
+	        	<a href="#" class="btn btn-outline-light lightModeText" id="serverFriendInviteBtn">Invite Friend</a>
         	</div>
         </div>
       </div>
       </div>
+    <input type="hidden" id="name" value="${ user.userName }" />
+    <input type="hidden" id="chat_room_id" value="${ chatRoom.id }" />
+    <input type="hidden" id="user_id" value="${ user.id }" />
+    <input type="hidden" id="server_id" value="${ server.id }" />
 </body>
 <script src="/js/script.js"></script>
 <script src="/js/darkMode.js"></script>
 <script src="/js/friendSearch.js"></script>
+<script src="/js/serverInviteModal.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </html>
