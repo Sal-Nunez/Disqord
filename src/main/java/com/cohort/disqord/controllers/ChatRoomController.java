@@ -145,14 +145,13 @@ public class ChatRoomController {
     @GetMapping("/friends/invite/{friendId}/room/{roomId}")
     public String inviteUserToRoom(@PathVariable("friendId") Long friendId, @PathVariable("roomId") Long roomId, HttpSession session) {
     	User invitee = userService.findById(friendId);
-    	ChatRoom chatRoom = chatRoomServ.findById(roomId);
     	chatRoomServ.addUser(roomId, invitee);
     	return "redirect:/chatRooms/" + roomId;
     }
     
     // Kick users from room (delete relationship)
     @DeleteMapping("/friends/kick/{friendId}/room/{roomId}")
-    public String kickUserToRoom(@PathVariable("friendId") Long friendId, @PathVariable("roomId") Long roomId, HttpSession session) {
+    public String kickUserFromRoom(@PathVariable("friendId") Long friendId, @PathVariable("roomId") Long roomId, HttpSession session) {
     	User kickee = userService.findById(friendId);
     	ChatRoom chatRoom = chatRoomServ.findById(roomId);
     	System.out.println(chatRoom.getUser().getId());

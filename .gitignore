@@ -34,3 +34,5 @@ target/classes/application.properties
 target/classes/application.properties
 target/classes/META-INF/maven/com.cohort.disqord/Disqord/pom.properties
 target/classes/META-INF/maven/com.cohort.disqord/Disqord/pom.properties
+*.properties
+target/classes/application.properties

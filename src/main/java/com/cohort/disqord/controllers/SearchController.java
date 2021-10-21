@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cohort.disqord.models.ChatRoom;
+import com.cohort.disqord.models.Server;
+import com.cohort.disqord.models.ServerMember;
 import com.cohort.disqord.models.User;
 import com.cohort.disqord.models.ajaxSearch.AjaxResponseBody;
 import com.cohort.disqord.models.ajaxSearch.SearchCriteria;
 import com.cohort.disqord.services.ChatRoomService;
+import com.cohort.disqord.services.ServerService;
 import com.cohort.disqord.services.UserService;
 
 @RestController
@@ -29,6 +32,8 @@ public class SearchController {
 	UserService userServ;
 	@Autowired
 	ChatRoomService chatRoomServ;
+	@Autowired
+	ServerService serverServ;
 	
 //	AJAX ROUTES
 
@@ -113,6 +118,59 @@ public class SearchController {
 		List<User> members = chatRoom.getChatRoomMembers();
 		
 		friends.removeAll(members);
+		
+		result.setResult(friends);
+		return ResponseEntity.ok(result);
+	}
+	
+// Find all friends already in server
+	@GetMapping("/friends/servers/{serverId}/serverMembers")
+	public ResponseEntity<?> getFriendsInServerAjax(HttpSession session, @PathVariable("serverId") Long serverId){
+		AjaxResponseBody result = new AjaxResponseBody();
+		
+		Server server = serverServ.findById(serverId);
+		List<ServerMember> serMems = server.getServerMembers();
+		
+		// Change server members to users servermember.servermember
+		ArrayList<User> users = new ArrayList<User>();
+		for(ServerMember sm : serMems) {
+			System.out.println(sm.getServerMember().getFirstName());
+			System.out.println(sm.getServer().getName());
+			users.add(sm.getServerMember());
+		}
+		
+		// Filter out active user
+		ArrayList<User> filteredUsers = new ArrayList<User>();
+		for(User user : users) {
+			if(user.getId() != (long)session.getAttribute("uuid")) {
+				if((long) user.getId() != (long) server.getOwner().getId()) {
+					filteredUsers.add(user);					
+				}
+			}
+		}
+		
+		result.setResult(filteredUsers);			
+		
+		return ResponseEntity.ok(result);
+	}
+	
+// Find all friends not in server
+	@GetMapping("/friends/servers/{serverId}")
+	public ResponseEntity<?> getFriendsNotInServerAjax(HttpSession session, @PathVariable("serverId") Long serverId){
+		AjaxResponseBody result = new AjaxResponseBody();
+		
+		User user = userServ.findById((long)session.getAttribute("uuid"));
+		List<User> friends = user.getFriends();
+		
+		Server server = serverServ.findById(serverId);
+		List<ServerMember> serMems = server.getServerMembers();
+		// Change server members to users servermember.servermember
+		ArrayList<User> users = new ArrayList<User>();
+		for(ServerMember sm : serMems) {
+			users.add(sm.getServerMember());
+		}
+		
+		friends.removeAll(users);
 		
 		result.setResult(friends);
 		return ResponseEntity.ok(result);
