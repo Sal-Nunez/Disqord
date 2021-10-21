@@ -76,9 +76,9 @@
                 </div>
             </div>
         </nav>
-		        	<div class="d-flex">
-		        	<div class="d-flex flex-row align-items-start">
-		        <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
+       	<div class="d-flex">
+        	<div class="d-flex flex-row align-items-start">
+	        <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
                 <div class="collapse navbar-collapse align-items-start" id="navbarSupportedContent">
 		        	<div class="d-flex flex-column">
 			        	<h1 class="me-5">Servers</h1>
@@ -87,44 +87,43 @@
 		        			</c:forEach>
 		        			<a href="/servers/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server</a>
 		        		</div>
-		        		<div class="d-flex flex-column me-5">
-		        					<h1>Categories</h1>
-		        					<c:forEach var="channel" items="${ server.channels }">
-									<c:if test="${ channel.category.id == null }">
-				        				<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ channel.name }" /></a>	        
-									</c:if>
-		        				</c:forEach>
-	        					<c:forEach var="categ" items="${server.categories}">
-		        					<b class="ps-2" style="font-size: 14pt;">${categ.name }</b>
-									<c:forEach var="channel" items="${ server.channels }">
-										<c:if test="${categ.id == channel.category.id }">
-					        				<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="#${ channel.name }" /></a>	        
-										</c:if>
-			        				</c:forEach >
-        						</c:forEach>
-        						<a href="/servers/${server.id}/categories/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server Category</a>
-        						<a href="/servers/${server.id}/channels/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Channel</a>
-		        		</div>
-		        	</div>
-		        	</nav>
-		        	</div>
-    		<div id="chat-page" class="light-mode">
-        		<div class="chat-container light-mode mt-2">
-            		<div class="chat-header light-mode d-flex justify-content-between">
-                <h2>${user.userName}</h2>
-                <h2 class="light-mode">Welcome to ${channel.name} ${user.fullName}</h2>
-                <a href="#" class="btn btn-outline-light lightModeText" >Invite Friend</a>
-            </div>
-            </div>
+	        		<div class="d-flex flex-column me-5">
+       					<h1>Categories</h1>
+       					<c:forEach var="channel" items="${ server.channels }">
+							<c:if test="${ channel.category.id == null }">
+		        				<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ channel.name }" /></a>	        
+							</c:if>
+        				</c:forEach>
+       					<c:forEach var="categ" items="${server.categories}">
+        					<b class="ps-2" style="font-size: 14pt;">${categ.name }</b>
+							<c:forEach var="channel" items="${ server.channels }">
+								<c:if test="${categ.id == channel.category.id }">
+			        				<a href="/servers/${server.id }/channels/${ channel.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="#${ channel.name }" /></a>	        
+								</c:if>
+	        				</c:forEach >
+     						</c:forEach>
+     						<a href="/servers/${server.id}/categories/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server Category</a>
+     						<a href="/servers/${server.id}/channels/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Channel</a>
+	        		</div>
+	        	</div>
+       		</nav>
+       	</div>
+   		<div id="chat-page" class="light-mode">
+       		<div class="chat-container light-mode mt-2">
+           		<div class="chat-header light-mode d-flex justify-content-between">
+	                <h2>${user.userName}</h2>
+	                <h2 class="light-mode">Welcome to ${channel.name} ${user.fullName}</h2>
+	                <a href="#" class="btn btn-outline-light lightModeText" >Invite Friend</a>
+           		</div>
             <ul id="messageArea" class="light-mode">
-            <c:forEach var="message" items="${ channel.channelMessages }">
-            <li class="chat-message  lightModeText">
-            <c:set var="firstLetter" value= "${ fn:substring(message.sender, 0, 1) }" />
-            <i class="${message.sender }" ><c:out value="${ firstLetter }" /></i>
-            <span class="senderName lightModeText"> <c:out value="${message.sender}" /> <span class="time"> <c:out value="${ message.time }" /> <span id="message${ message.id }" class="tooltiptime lightModeText"><c:out value="${ message.floatTime }" /></span></span> </span>
-            <p class=" lightModeText"> <c:out value="${ message.content }" /> </p>            
-            </li>
-            </c:forEach>
+	            <c:forEach var="message" items="${ channel.channelMessages }">
+		            <li class="chat-message  lightModeText">
+		            	<c:set var="firstLetter" value= "${ fn:substring(message.sender, 0, 1) }" />
+		            <i class="${message.sender }" ><c:out value="${ firstLetter }" /></i>
+		            <span class="senderName lightModeText"> <c:out value="${message.sender}" /> <span class="time"> <c:out value="${ message.time }" /> <span id="message${ message.id }" class="tooltiptime lightModeText"><c:out value="${ message.floatTime }" /></span></span> </span>
+		            <p class=" lightModeText"> <c:out value="${ message.content }" /> </p>            
+		            </li>
+	            </c:forEach>
             </ul>
             <form id="messageForm" name="messageForm">
                 <div class="form-group">
@@ -134,11 +133,13 @@
                     </div>
                 </div>
             </form>
+           	</div>
         </div>
-    <input type="hidden" id="name" value="${ user.userName }" />
-    <input type="hidden" id="channel_id" value="${ channel.id }" />
-    <input type="hidden" id="user_id" value="${ user.id }" />
-	</div>
+	        
+		    <input type="hidden" id="name" value="${ user.userName }" />
+		    <input type="hidden" id="channel_id" value="${ channel.id }" />
+		    <input type="hidden" id="user_id" value="${ user.id }" />
+		</div>
     </div>
 	
 	

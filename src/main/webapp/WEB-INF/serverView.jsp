@@ -113,7 +113,16 @@
         	</div>
         </div>
       </div>
-      </div>
+    </div>
+      
+    <c:if test="${user.id == server.owner.id}">
+		<div class="mt-3 d-flex text-center justify-content-center">	
+			<a class="mx-2 btn btn-primary" href="/servers/${server.id}/categories/edit">Edit Server Categories</a>	
+		</div>
+    </c:if>
+      
+      
+      
 </body>
 <script src="/js/script.js"></script>
 <script src="/js/darkMode.js"></script>
