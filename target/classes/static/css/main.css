@@ -138,11 +138,12 @@ button.accent {
 
 .chat-container {
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 100px;
     background-color: #fff;
     box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
     margin-top: 30px;
     height: 80vh;
+    width: 80vw;
     position: relative;
     border-radius: 10px;
 

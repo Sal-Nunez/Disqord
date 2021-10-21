@@ -22,14 +22,17 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body onload="darkModeCheck()">
+
 	<!-- Modal - used for both invite and add friends -->
 	<!-- Note: separate from main content - html is hidden until prompted  -->
             <div class="modal fade" id="search-modal" role="dialog">
                 <div class="modal-s modal-dialog lightModeText">
                     <div class="modal-content light-mode">
+
                         <div class="modal-header" id="searchModalHeader">
                             <form class="d-flex align-items-center" id="userSearchForm"> 
                                 <input class="form-control me-2" type="search" placeholder="Add user by username" aria-label="userSearch" id="userSearch" name="userSearch"> 
+
                                 <button class="btn btn-outline-success btn-sm" type="submit" id="userSearchBtn">Search</button>
                             </form>
                         </div>
@@ -42,58 +45,28 @@
                     </div>
                 </div>
             </div>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg light-mode">
+
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
+
             <div class="container-fluid">
-                <a class="navbar-brand" href="/dashboard">Disqord</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <a class="navbar-brand lightModeText" href="/dashboard">Disqord</a>
+                <button class="navbar-toggler light-mode" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                    <span class=""><span class="align-middle  lightModeText" style="font-size: 2rem;">&#9776</span></span>
+                    <span class="align-middle  lightModeText" style="font-size: 2rem;">&#9776</span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle lightModeText" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item bg-success" href="#" id="navFriendBtn">Add Friend</a></li>
+                                <li><a class="dropdown-item bg-success" href="#" id="navFriendBtn">My Friends</a></li>
                                 <li><a class="dropdown-item bg-danger" href="/logout">Logout</a></li>
                             </ul>
-                    </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Servers
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	        					<c:forEach var = "server" items = "${ user.servers }">
-		        					<li>
-			        				<a href="#" class="dropdown-item"><c:out value="${ server.name }" /></a>
-			        				</li>     		
-	        					</c:forEach>
-                    			<li class="icon-item">
-		        					<a href="servers/new" class="dropdown-item bg-success">+ New Server</a>
-		        				</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Chats
-                            </a>
-                    		<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-  	        					<c:forEach var="chatRoom" items="${ user.chatRooms }">
-	        						<li><a href="/chatRooms/${ chatRoom.id }" class="dropdown-item"><c:out value="${ chatRoom.name }" /></a></li>       
-	        					</c:forEach>
-                        		<li><a href="/chatRooms/new" class="dropdown-item bg-success">New Chat Room</a></li>
-                    		</ul>
-                        </li>
                     </ul>
                     <div class="form-check form-switch me-4">
   						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" onClick="darkMode(); darkModeCheck();">
@@ -106,6 +79,27 @@
                 </div>
             </div>
         </nav>
+              <div class="d-flex">
+                	<div class="d-flex flex-row align-items-start">
+		        <nav class="navbar navbar-expand-lg light-mode blr-10 brr-10">
+                <div class="collapse navbar-collapse align-items-start" id="navbarSupportedContent">
+		        	<div class="d-flex flex-column">
+			        	<h1 class="me-5">Servers</h1>
+			        		<c:forEach var = "server" items = "${ user.servers }">
+				        	<a href="/servers/${server.id}" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ server.name }" /></a>    		
+		        			</c:forEach>
+		        			<a href="/servers/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Server</a>
+		        		</div>
+		        		<div class="d-flex flex-column">
+		        		<h1 class="me-5">Chats</h1>
+		        			<c:forEach var="chatRoom" items="${ user.chatRooms }">
+							<a href="/chatRooms/${ chatRoom.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ chatRoom.name }" /></a>    
+							</c:forEach>
+	        			<a href="/chatRooms/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Chat</a>
+	        			</div>
+		        	</div>
+		        	</nav>
+		        	</div>
     <div id="chat-page" class="light-mode">
         <div class="chat-container light-mode">
             <div class="chat-header light-mode d-flex justify-content-between">
@@ -131,6 +125,7 @@
                     </div>
                 </div>
             </form>
+		        	</div>
         </div>
     </div>
     <input type="hidden" id="name" value="${ user.userName }" />
