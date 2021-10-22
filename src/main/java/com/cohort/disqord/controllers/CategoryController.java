@@ -106,7 +106,7 @@ public class CategoryController {
             model.addAttribute("categories", categories);
             return "editChannel.jsp";
         } else {
-        	categoryServ.updateCreate(category);
+        	categoryServ.save(category);
             return "redirect:/dashboard";
         }
     }

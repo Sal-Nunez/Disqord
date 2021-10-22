@@ -68,7 +68,7 @@ public class ServerController {
 	        	ServerMember serverMember = new ServerMember();
 	        	serverMember.setServerMember(user);
 	        	serverMember.setServer(server);
-	        	serverMemberServ.updateCreate(serverMember);
+	        	serverMemberServ.save(serverMember);
 	            return "redirect:/dashboard";
 	        }
         }
@@ -144,7 +144,7 @@ public class ServerController {
     	ServerMember serverMember = new ServerMember();
     	serverMember.setServerMember(invitee);
     	serverMember.setServer(serverServ.findById(serverId));
-    	serverMemberServ.updateCreate(serverMember);
+    	serverMemberServ.save(serverMember);
     	return "redirect:/servers/"+ serverId;
     }
     
