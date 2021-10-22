@@ -93,7 +93,7 @@
 		        		<div class="d-flex flex-column">
 		        		<h1 class="me-5">Chats</h1>
 		        			<c:forEach var="chatRoom" items="${ user.chatRooms }">
-							<a href="/chatRooms/${ chatRoom.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ chatRoom.name }" /></a>    
+							<a href="/chatRooms/${ chatRoom.id }" class="btn btn-primary lightModeText mb-3 me-3 button1"><c:out value="${ chatRoom.name }" /><span class="ChatRoomListener" id="chatRoomListener${ chatRoom.id }"></span></a>    
 							</c:forEach>
 	        			<a href="/chatRooms/new" class="btn btn-primary lightModeText mb-3 me-3 button1 bg-success">+ New Chat</a>
 	        			</div>

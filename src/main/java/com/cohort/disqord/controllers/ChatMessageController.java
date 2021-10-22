@@ -48,7 +48,7 @@ public class ChatMessageController {
         if (result.hasErrors()) {
             return "newChatMessage.jsp";
         } else {
-            chatMessageServ.updateCreate(chatMessage);
+            chatMessageServ.save(chatMessage);
             return "redirect:/dashboard";
         }
     }
@@ -80,7 +80,7 @@ public class ChatMessageController {
             model.addAttribute("user", user);
             return "editChatMessage.jsp";
         } else {
-            chatMessageServ.updateCreate(chatMessage);
+            chatMessageServ.save(chatMessage);
             return "redirect:/dashboard";
         }
     }

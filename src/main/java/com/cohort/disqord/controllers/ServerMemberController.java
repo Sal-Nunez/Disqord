@@ -49,7 +49,7 @@ public class ServerMemberController {
         if (result.hasErrors()) {
             return "newServerMember.jsp";
         } else {
-            serverMemberServ.updateCreate(serverMember);
+            serverMemberServ.save(serverMember);
             return "redirect:/dashboard";
         }
     }
@@ -81,7 +81,7 @@ public class ServerMemberController {
             model.addAttribute("user", user);
             return "editServerMember.jsp";
         } else {
-            serverMemberServ.updateCreate(serverMember);
+            serverMemberServ.save(serverMember);
             return "redirect:/dashboard";
         }
     }
@@ -114,4 +114,5 @@ public class ServerMemberController {
             session.removeAttribute("uuid");
             return "redirect:/";
         }
+        
 }

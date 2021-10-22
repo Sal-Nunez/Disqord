@@ -29,7 +29,7 @@ public class RoleService {
 		}
 	}
 	
-	public Role updateCreate(Role role) {
+	public Role save(Role role) {
 		return roleRepo.save(role);
 	}
 	

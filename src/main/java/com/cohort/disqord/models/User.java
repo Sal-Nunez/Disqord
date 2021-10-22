@@ -124,7 +124,13 @@ public class User {
 	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ChatMessage> chatMessages;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<ChatRoomNotification> chatRoomNotification;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<ChannelNotification> channelNotification;
 	
 	
 	@JsonIgnore

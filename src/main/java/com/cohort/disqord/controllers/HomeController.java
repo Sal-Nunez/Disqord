@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import com.cohort.disqord.models.LoginUser;
 import com.cohort.disqord.models.ServerMember;
 import com.cohort.disqord.models.User;
+import com.cohort.disqord.services.ChatRoomNotificationServ;
 import com.cohort.disqord.services.UserService;
 
 @Controller
@@ -26,12 +26,14 @@ public class HomeController {
     @Autowired
     private UserService userServ;
     
+    @Autowired
+    ChatRoomNotificationServ chatRoomNotificationServ;
+    
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
     	if (session.getAttribute("uuid") != null) {
     		return "redirect:/dashboard";
     	}
-    	
         model.addAttribute("newUser", new User());
         model.addAttribute("newLogin", new LoginUser());
         return "/Users/index.jsp";

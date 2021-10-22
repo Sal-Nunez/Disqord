@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import com.cohort.disqord.models.Category;
 import com.cohort.disqord.models.Channel;
 import com.cohort.disqord.models.ChannelMessage;
-import com.cohort.disqord.models.ChatMessage;
 import com.cohort.disqord.models.Server;
 import com.cohort.disqord.models.User;
 import com.cohort.disqord.services.CategoryService;
@@ -85,7 +84,7 @@ public class ChannelController {
             
             return "newChannel.jsp";
         } else {
-            channelServ.updateCreate(channel);
+            channelServ.save(channel);
             return "redirect:/servers/" + server_id;
         }
     }
@@ -139,7 +138,7 @@ public class ChannelController {
             model.addAttribute("categories", categories);
             return "editChannel.jsp";
         } else {
-            channelServ.updateCreate(channel);
+            channelServ.save(channel);
             return "redirect:/dashboard";
         }
     }
@@ -178,7 +177,7 @@ public class ChannelController {
     @MessageMapping("/chat.sendMessage/channel/{id}")
     @SendTo("/topic/public/channel/{id}")
     public ChannelMessage sendMessage(@Payload ChannelMessage channelMessage, @PathVariable("id") String room) {
-    	channelMessageServ.updateCreate(channelMessage);
+    	channelMessageServ.save(channelMessage);
         return channelMessage;
     }
         

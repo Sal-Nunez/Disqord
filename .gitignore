@@ -22,17 +22,10 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 *.properties
-<<<<<<< HEAD
-=======
-*.properties
->>>>>>> main
 target/classes/META-INF/maven/com.cohort.disqord/Disqord/pom.properties
 src/main/resources/application.properties
 target/classes/META-INF/maven/com.cohort.disqord/Disqord/pom.properties
 src/main/resources/application.properties
 target/classes/application.properties
-target/classes/application.properties
 target/classes/META-INF/maven/com.cohort.disqord/Disqord/pom.properties
-target/classes/META-INF/maven/com.cohort.disqord/Disqord/pom.properties
-*.properties
-target/classes/application.properties
+src/main/resources/application.properties

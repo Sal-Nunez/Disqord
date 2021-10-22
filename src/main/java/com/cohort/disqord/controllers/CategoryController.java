@@ -56,7 +56,7 @@ public class CategoryController {
         if (result.hasErrors()) {
             return "newCategory.jsp";
         } else {
-        	categoryServ.updateCreate(category);
+        	categoryServ.save(category);
             return "redirect:/dashboard";
         }
     }
@@ -106,7 +106,7 @@ public class CategoryController {
             model.addAttribute("categories", categories);
             return "editChannel.jsp";
         } else {
-        	categoryServ.updateCreate(category);
+        	categoryServ.save(category);
             return "redirect:/dashboard";
         }
     }

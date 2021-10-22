@@ -34,7 +34,6 @@ function darkMode() {
 }
 
 function darkModeCheck() {
-	console.log("darkModeCheck called")
 	text = document.querySelectorAll(".lightModeText");
 	background = document.querySelectorAll(".light-mode");
 	if (localStorage.getItem('theme') == "dark-mode") {

@@ -63,12 +63,12 @@ public class ServerController {
 	        	Long id = (Long) session.getAttribute("uuid");
 	        	User user = userService.findById(id);
 	        	server.setOwner(user);
-	        	serverServ.updateCreate(server);
+	        	serverServ.save(server);
 	        	// Save owner as server member
 	        	ServerMember serverMember = new ServerMember();
 	        	serverMember.setServerMember(user);
 	        	serverMember.setServer(server);
-	        	serverMemberServ.updateCreate(serverMember);
+	        	serverMemberServ.save(serverMember);
 	            return "redirect:/dashboard";
 	        }
         }
@@ -101,7 +101,7 @@ public class ServerController {
             model.addAttribute("user", user);
             return "editServer.jsp";
         } else {
-            serverServ.updateCreate(server);
+            serverServ.save(server);
             return "redirect:/dashboard";
         }
     }
@@ -144,7 +144,7 @@ public class ServerController {
     	ServerMember serverMember = new ServerMember();
     	serverMember.setServerMember(invitee);
     	serverMember.setServer(serverServ.findById(serverId));
-    	serverMemberServ.updateCreate(serverMember);
+    	serverMemberServ.save(serverMember);
     	return "redirect:/servers/"+ serverId;
     }
     

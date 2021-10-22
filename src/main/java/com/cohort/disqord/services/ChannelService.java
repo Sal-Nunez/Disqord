@@ -29,7 +29,7 @@ public class ChannelService {
 		}
 	}
 	
-	public Channel updateCreate(Channel channel) {
+	public Channel save(Channel channel) {
 		return channelRepo.save(channel);
 	}
 	

@@ -31,7 +31,7 @@ public class ChatRoomService {
 		}
 	}
 	
-	public ChatRoom updateCreate(ChatRoom chatRoom) {
+	public ChatRoom save(ChatRoom chatRoom) {
 		return chatRoomRepo.save(chatRoom);
 	}
 	

@@ -29,7 +29,7 @@ public class ServerService {
 		}
 	}
 	
-	public Server updateCreate(Server server) {
+	public Server save(Server server) {
 		return serverRepo.save(server);
 	}
 	

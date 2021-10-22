@@ -2,6 +2,8 @@ package com.cohort.disqord.controllers;
 
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -21,8 +23,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.cohort.disqord.models.ChatMessage;
 import com.cohort.disqord.models.ChatRoom;
+import com.cohort.disqord.models.ChatRoomNotification;
 import com.cohort.disqord.models.User;
 import com.cohort.disqord.services.ChatMessageService;
+import com.cohort.disqord.services.ChatRoomNotificationServ;
 import com.cohort.disqord.services.ChatRoomService;
 import com.cohort.disqord.services.UserService;
 
@@ -37,6 +41,9 @@ public class ChatRoomController {
     
     @Autowired
     ChatMessageService chatMessageServ;
+    
+    @Autowired
+    ChatRoomNotificationServ chatRoomNotificationServ;
 
 
 
@@ -61,7 +68,7 @@ public class ChatRoomController {
         } else {
         	User user = userService.findById((Long) session.getAttribute("uuid"));
         	chatRoom.setUser(user);
-            chatRoomServ.updateCreate(chatRoom);
+            chatRoomServ.save(chatRoom);
             return "redirect:/chatRoomMembers/add/" + chatRoom.getId();
         }
     }
@@ -100,7 +107,7 @@ public class ChatRoomController {
             model.addAttribute("user", user);
             return "editChatRoom.jsp";
         } else {
-            chatRoomServ.updateCreate(chatRoom);
+            chatRoomServ.save(chatRoom);
             return "redirect:/dashboard";
         }
     }
@@ -137,8 +144,31 @@ public class ChatRoomController {
     @MessageMapping("/chat.sendMessage/chat_room/{id}")
     @SendTo("/topic/public/chat_room/{id}")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage, @PathVariable("id") String room) {
-    	chatMessageServ.updateCreate(chatMessage);
+    	chatMessageServ.save(chatMessage);
         return chatMessage;
+    }
+
+    @MessageMapping("sendNotification/chat_room/{chat_room_id}")
+    @SendTo("/topic/notification/chat_room/{chat_room_id}")
+    public ChatRoomNotification sendNotification(@Payload ChatRoomNotification chatRoomNotification) {
+		ChatRoomNotification cRN1 = chatRoomNotificationServ.findByUserIdAndChatRoomId(chatRoomNotification.getUser_id(), chatRoomNotification.getChat_room_id());
+    	ChatRoom chatRoom = chatRoomServ.findById(chatRoomNotification.getChat_room_id());
+    	List<User> cRM = chatRoom.getChatRoomMembers();
+    	Long chat_room_id = chatRoomNotification.getChat_room_id();
+    	for(User user : cRM) {
+    		ChatRoomNotification cRN = chatRoomNotificationServ.findByUserIdAndChatRoomId(user.getId(), chat_room_id);
+    		if (cRN != null) {
+    			cRN.setCount(cRN.getCount() + 1);
+    			chatRoomNotificationServ.save(cRN);    			
+    		} else {
+    			ChatRoomNotification newCRN = new ChatRoomNotification();
+    			newCRN.setCount((long) 1);
+    			newCRN.setUser_id(user.getId());
+    			newCRN.setChat_room_id(chat_room_id);
+    			chatRoomNotificationServ.save(newCRN);
+    		}
+    	}
+    	return cRN1;    	
     }
     
     // Invite users to room

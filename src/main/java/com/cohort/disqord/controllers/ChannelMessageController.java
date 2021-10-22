@@ -48,7 +48,7 @@ public class ChannelMessageController {
         if (result.hasErrors()) {
             return "newChannelMessage.jsp";
         } else {
-            channelMessageServ.updateCreate(channelMessage);
+            channelMessageServ.save(channelMessage);
             return "redirect:/dashboard";
         }
     }
@@ -80,7 +80,7 @@ public class ChannelMessageController {
             model.addAttribute("user", user);
             return "editChannelMessage.jsp";
         } else {
-            channelMessageServ.updateCreate(channelMessage);
+            channelMessageServ.save(channelMessage);
             return "redirect:/dashboard";
         }
     }

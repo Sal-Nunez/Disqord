@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cohort.disqord.models.ChatRoom;
-import com.cohort.disqord.models.Server;
-import com.cohort.disqord.models.ServerMember;
+import com.cohort.disqord.models.ChatRoomNotification;
 import com.cohort.disqord.models.User;
 import com.cohort.disqord.models.ajaxSearch.AjaxResponseBody;
 import com.cohort.disqord.models.ajaxSearch.SearchCriteria;
+import com.cohort.disqord.services.ChatRoomNotificationServ;
+import com.cohort.disqord.models.ChatRoom;
+import com.cohort.disqord.models.Server;
+import com.cohort.disqord.models.ServerMember;
 import com.cohort.disqord.services.ChatRoomService;
 import com.cohort.disqord.services.ServerService;
 import com.cohort.disqord.services.UserService;
@@ -34,6 +36,9 @@ public class SearchController {
 	ChatRoomService chatRoomServ;
 	@Autowired
 	ServerService serverServ;
+	
+	@Autowired
+	ChatRoomNotificationServ chatRoomNotificationServ;
 	
 //	AJAX ROUTES
 
@@ -174,6 +179,30 @@ public class SearchController {
 		
 		result.setResult(friends);
 		return ResponseEntity.ok(result);
+	}
+	
+	
+	@GetMapping("/chat_room_notifications/{chat_room_id}/{user_id}")
+	public ChatRoomNotification chatRoomNotifications(@PathVariable("chat_room_id") Long chat_room_id, @PathVariable("user_id") Long user_id) {
+		ChatRoomNotification cRN = chatRoomNotificationServ.findByUserIdAndChatRoomId(user_id, chat_room_id);
+		if (cRN != null) {  			
+		} else {
+			ChatRoomNotification newCRN = new ChatRoomNotification();
+			newCRN.setCount((long) 0);
+			newCRN.setUser_id(user_id);
+			newCRN.setChat_room_id(chat_room_id);
+			chatRoomNotificationServ.save(newCRN);
+		}
+		return cRN;
+	}
+	
+	
+	@GetMapping("/chat_room_notifications/{chat_room_id}/{user_id}/reset")
+	public ChatRoomNotification deleteChatRoomNotifications(@PathVariable("chat_room_id") Long chat_room_id, @PathVariable("user_id") Long user_id) {
+		ChatRoomNotification cRN = chatRoomNotificationServ.findByUserIdAndChatRoomId(user_id, chat_room_id);
+		cRN.setCount((long) 0);
+		chatRoomNotificationServ.save(cRN);
+		return cRN;
 	}
 	
 	
