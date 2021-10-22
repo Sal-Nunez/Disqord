@@ -24,9 +24,6 @@ import com.cohort.disqord.services.ChatRoomNotificationServ;
 import com.cohort.disqord.models.ChatRoom;
 import com.cohort.disqord.models.Server;
 import com.cohort.disqord.models.ServerMember;
-import com.cohort.disqord.models.User;
-import com.cohort.disqord.models.ajaxSearch.AjaxResponseBody;
-import com.cohort.disqord.models.ajaxSearch.SearchCriteria;
 import com.cohort.disqord.services.ChatRoomService;
 import com.cohort.disqord.services.ServerService;
 import com.cohort.disqord.services.UserService;
@@ -188,6 +185,14 @@ public class SearchController {
 	@GetMapping("/chat_room_notifications/{chat_room_id}/{user_id}")
 	public ChatRoomNotification chatRoomNotifications(@PathVariable("chat_room_id") Long chat_room_id, @PathVariable("user_id") Long user_id) {
 		ChatRoomNotification cRN = chatRoomNotificationServ.findByUserIdAndChatRoomId(user_id, chat_room_id);
+		if (cRN != null) {  			
+		} else {
+			ChatRoomNotification newCRN = new ChatRoomNotification();
+			newCRN.setCount((long) 0);
+			newCRN.setUser_id(user_id);
+			newCRN.setChat_room_id(chat_room_id);
+			chatRoomNotificationServ.save(newCRN);
+		}
 		return cRN;
 	}
 	

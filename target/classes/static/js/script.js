@@ -223,6 +223,37 @@ function onNotificationReceived(payload){
 	})
 }
 
+function checkNotifications() {
+	
+	console.log("IN")
+		let chatRoomListeners = document.querySelectorAll(".ChatRoomListener")
+	chatRoomListeners.forEach(e => {
+		let chatRoomListenerId = e.getAttribute("id")
+		let chat_room_notification_id = chatRoomListenerId.substring(16, chatRoomListenerId.length)
+		user_id = document.querySelector('#user_id').value.trim();
+			fetch("http://localhost:8080/chat_room_notifications/" + chat_room_notification_id + "/" + user_id) // fetch returns a promise
+			.then(res => res.json()) // this also returns promise
+			.then(data => {
+				if ("http://localhost:8080/chatRooms/" + chat_room_notification_id == window.location.href){
+					fetch("http://localhost:8080/chat_room_notifications/" + chat_room_notification_id + "/" + user_id + "/reset")
+					.then(res => res.json())
+					.then (data1 => {
+					let displayNotification = document.querySelector(`#chatRoomListener${chat_room_notification_id}`)
+					displayNotification.innerText = ""			
+					}) 
+				} else {
+					let displayNotification = document.querySelector(`#chatRoomListener${chat_room_notification_id}`)
+					if(data.count == 0){
+						displayNotification.innerText = ""
+					} else {
+					displayNotification.innerText = data.count						
+					}
+				}
+				
+			})
+			})
+}
+
 function getAvatarColor(messageSender) {
     var colors = [
         '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -275,7 +306,6 @@ function getAvatarColor(messageSender) {
     var index = Math.abs(hash % moreColors.length);
     return moreColors[index];
 }
-window.onload = onNotificationReceived;
 window.onload = connect;
 messageForm.addEventListener('submit', sendMessage, true)
 
@@ -287,3 +317,5 @@ function chatBar() {
         x.className = "chatbar";
     }
 }
+
+checkNotifications();
