@@ -170,6 +170,29 @@ public class ChatRoomController {
     	}
     	return cRN1;    	
     }
+    
+    // Invite users to room
+    @GetMapping("/friends/invite/{friendId}/room/{roomId}")
+    public String inviteUserToRoom(@PathVariable("friendId") Long friendId, @PathVariable("roomId") Long roomId, HttpSession session) {
+    	User invitee = userService.findById(friendId);
+    	chatRoomServ.addUser(roomId, invitee);
+    	return "redirect:/chatRooms/" + roomId;
+    }
+    
+    // Kick users from room (delete relationship)
+    @DeleteMapping("/friends/kick/{friendId}/room/{roomId}")
+    public String kickUserFromRoom(@PathVariable("friendId") Long friendId, @PathVariable("roomId") Long roomId, HttpSession session) {
+    	User kickee = userService.findById(friendId);
+    	ChatRoom chatRoom = chatRoomServ.findById(roomId);
+    	System.out.println(chatRoom.getUser().getId());
+    	if((long)session.getAttribute("uuid") == chatRoom.getUser().getId()) {
+    		chatRoomServ.removeUser(chatRoom, kickee);
+    		return "redirect:/chatRooms/" + roomId;
+    	} else {
+    		return "redirect:/chatRooms/" + roomId;
+    	}
+    }
+    
 
 
 }

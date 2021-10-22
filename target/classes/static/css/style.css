@@ -262,15 +262,7 @@ section {
   display: none;
 }
 
-@media screen and (max-width: 1000px) {
-  .chatbar a:not(:first-child) {display: none;}
-  .chatbar a.icon1 {
-    float: right;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 1000px) {
   .chatbar.responsive {position: relative;}
   .chatbar.responsive .icon1 {
     position: absolute;
@@ -283,3 +275,22 @@ section {
     text-align: left;
   }
 }
+
+.button1 {
+    transition: all .5s ease;
+    border: 3px solid white;
+    font-family:'Montserrat', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1;
+    font-size: 17px;
+    background-color : transparent;
+    padding: 10px;
+    outline: none;
+    border-radius: 4px;
+}
+.button1:hover {
+    color: #001F3F;
+    background-color: transparent;
+}
+

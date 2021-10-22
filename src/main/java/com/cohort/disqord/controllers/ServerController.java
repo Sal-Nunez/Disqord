@@ -2,6 +2,7 @@ package com.cohort.disqord.controllers;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+
 import com.cohort.disqord.models.Server;
 import com.cohort.disqord.models.ServerMember;
 import com.cohort.disqord.models.User;
@@ -66,6 +68,7 @@ public class ServerController {
 	        	ServerMember serverMember = new ServerMember();
 	        	serverMember.setServerMember(user);
 	        	serverMember.setServer(server);
+	        	serverMemberServ.updateCreate(serverMember);
 	            return "redirect:/dashboard";
 	        }
         }
@@ -131,5 +134,33 @@ public class ServerController {
         }
         session.removeAttribute("uuid");
         return "redirect:/";
+    }
+    
+    // Instantiate invited user as server member then redirect to route below
+    @GetMapping("/friends/invite/{friendId}/servers/{serverId}")
+    public String inviteUserToServer(@PathVariable("friendId") Long friendId, @PathVariable("serverId") Long serverId, HttpSession session) {
+    	User invitee = userService.findById(friendId);
+    	System.out.println("in serveermember add");
+    	ServerMember serverMember = new ServerMember();
+    	serverMember.setServerMember(invitee);
+    	serverMember.setServer(serverServ.findById(serverId));
+    	serverMemberServ.updateCreate(serverMember);
+    	return "redirect:/servers/"+ serverId;
+    }
+    
+    // Kick users from room (delete relationship)
+    @DeleteMapping("/friends/kick/{friendId}/servers/{serverId}")
+    public String kickUserFromServer(@PathVariable("friendId") Long friendId, @PathVariable("serverId") Long serverId, HttpSession session) {
+    	
+    	ServerMember sm = serverMemberServ.findByUserIdAndServerId(friendId, serverId);
+    	Server server = serverServ.findById(serverId);
+    	
+    	
+    	if((long)session.getAttribute("uuid") == server.getOwner().getId()) {
+    		serverMemberServ.delete(sm.getId());
+    		return "redirect:/servers/" + serverId;
+    	} else {
+    		return "redirect:/servers/" + serverId;
+    	}
     }
 }

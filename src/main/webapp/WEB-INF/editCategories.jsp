@@ -22,28 +22,24 @@
 <body class="bg-dark mt-5 container d-flex justify-content-center" style="color: whitesmoke;">
 <div class="container d-flex justify-content-center flex-column">
 	<div>
-	    <h1>Create Server Category</h1>
+	    <h1>Edit ${thisCategory.name} Category</h1>
 	    <a href="/dashboard" class="mt-2 btn btn-primary">Back to Dashboard</a>
 	    
-	    <form:form class="" action="/newCategory" method="post" modelAttribute="category">
-	        <form:input type="hidden" path="server" value="${server.id }"/>
-	        <div class="form-group">
-	            <label>Category Name:</label>
-	            <form:input path="name" class="form-control mb-3" />
-	            <form:errors path="name" class="text-danger" />
-	        </div>
-	       
-	        
-	        <input type="submit" value="Create Category" class="btn btn-primary" />
-	    </form:form>
-	    
-	    <div>
-	    <!-- Iterating through Server members to add to server chat room -->
-		    <c:forEach var = "serverMember" items = "${ server.serverMembers }">
-			      <a href="#" class="btn btn-light mt-1"><c:out value="${ serverMember.serverMember.userName }" /></a>        		
-		    </c:forEach>
-	    </div>
-	    
+	    <c:forEach var="oldCategory" items="${categories}">
+	    	<c:if test="${oldCategory.server.id == server.id }" >
+				<form:form class="" action="/servers/${server.id}/category/${oldCategory.id}/update" method="post" modelAttribute="category">
+			        <form:input type="hidden" path="server" value="${server.id }"/>
+			        <form:input type="hidden" path="id" value="${oldCategory.id }"/>
+			        <div class="form-group">
+			            <label>Category Name:</label>
+			            <form:input path="name" class="form-control mb-3" value="${oldCategory.name}"/>
+			            <form:errors path="name" class="text-danger" />
+			        </div>
+			        <input type="submit" value="Update Category" class="btn btn-primary" />
+			    </form:form>
+	    	</c:if>
+		    
+	    </c:forEach>
 	</div>
 </div>
 </body>

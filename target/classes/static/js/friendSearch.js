@@ -1,7 +1,8 @@
-function darkModeCall(){
-	darkModeCheck();
-}
 
+console.log("friendSearch connected")
+////////////////////////////////////////
+/////// ACCOUNT FRIENDS DROPDOWN ///////
+////////////////////////////////////////
 
 // =====================================
 // Clicking 'Friends' tab on account dropdown 
@@ -14,7 +15,6 @@ navFriendBtn.addEventListener('click', function (e) {
 	$('#search-results-container').html('');
 	$('#search-modal').modal('show')
 	fire_ajax_allFriends();
-	darkModeCall();
 })
 
 // ====================================
@@ -24,7 +24,6 @@ $(document).ready(function () {
 	$("#userSearchForm").submit(function (e) {
 		e.preventDefault();
 		fire_ajax_submit();
-		darkModeCall();
 	});
 
 });
@@ -106,3 +105,4 @@ function fire_ajax_submit() {
 	})
 	
 }
+

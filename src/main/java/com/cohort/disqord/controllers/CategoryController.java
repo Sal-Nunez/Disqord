@@ -1,5 +1,7 @@
 package com.cohort.disqord.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.cohort.disqord.models.Category;
+import com.cohort.disqord.models.Channel;
 import com.cohort.disqord.models.Server;
 import com.cohort.disqord.models.User;
 import com.cohort.disqord.services.CategoryService;
@@ -58,6 +61,54 @@ public class CategoryController {
         }
     }
 
+    @GetMapping("/servers/{server_id}/categories/edit")
+    public String editsChannel(
+            @ModelAttribute("category") Category category,
+            BindingResult result, HttpSession session,
+            @PathVariable("server_id") Long server_id,
+            Model model) {
+        if(session.getAttribute("uuid") == null) {
+        return "redirect:/";
+        } else {
+            Long user_id = (Long) session.getAttribute("uuid");
+            User user = userService.findById(user_id);
+            model.addAttribute("user", user);
+        	// Server id for assignment ============
+            Server server = serverServ.findById(server_id);
+            model.addAttribute("server", server);
+            // Get all categories for possible assignment ==========
+            List<Category> categories = categoryServ.findAll();
+            model.addAttribute("categories", categories);
+            return "editCategories.jsp";
+        }
+    }
 
+
+    @PostMapping("/servers/{server_id}/category/{category_id}/update")
+    public String editCategory(
+            @Valid @ModelAttribute("category") Category category,
+            BindingResult result, HttpSession session,
+            @PathVariable("server_id") Long server_id, 
+            @PathVariable("category_id")Long category_id, 
+            Model model) {
+        if (result.hasErrors()) {
+            Long user_id = (Long) session.getAttribute("uuid");
+            User user = userService.findById(user_id);
+            model.addAttribute("user", user);
+        	// Server id for assignment ============
+            Server server = serverServ.findById(server_id);
+            model.addAttribute("server", server);
+            // category Id for assignment =========
+            Channel categoryLoad = channelServ.findById(category_id);
+            model.addAttribute("categoryLoad", categoryLoad);
+            // Get all categories for possible assignment ==========
+            List<Category> categories = categoryServ.findAll();
+            model.addAttribute("categories", categories);
+            return "editChannel.jsp";
+        } else {
+        	categoryServ.updateCreate(category);
+            return "redirect:/dashboard";
+        }
+    }
     
 }

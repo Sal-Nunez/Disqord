@@ -89,11 +89,12 @@ public class ChannelController {
         }
     }
 
-    @GetMapping("/channels/{id}/edit")
+    @GetMapping("/servers/{server_id}/channels/{channel_id}/edit")
     public String editsChannel(
             @ModelAttribute("channel") Channel channel,
             BindingResult result, HttpSession session,
-            @PathVariable("id") Long id,
+            @PathVariable("channel_id") Long channel_id,
+            @PathVariable("server_id") Long server_id,
             Model model) {
         if(session.getAttribute("uuid") == null) {
         return "redirect:/";
@@ -101,19 +102,40 @@ public class ChannelController {
             Long user_id = (Long) session.getAttribute("uuid");
             User user = userService.findById(user_id);
             model.addAttribute("user", user);
+        	// Server id for assignment ============
+            Server server = serverServ.findById(server_id);
+            model.addAttribute("server", server);
+            // Channel Id for assignment =========
+            Channel thisChannel = channelServ.findById(channel_id);
+            model.addAttribute("thisChannel", thisChannel);
+            // Get all categories for possible assignment ==========
+            List<Category> categories = categoryServ.findAll();
+            model.addAttribute("categories", categories);
             return "editChannel.jsp";
         }
     }
 
 
-    @PutMapping("/channel/{id}/edit")
+    @PostMapping("/servers/{server_id}/channels/{channel_id}/update")
     public String editChannel(
             @Valid @ModelAttribute("channel") Channel channel,
-            BindingResult result, HttpSession session, Model model) {
+            BindingResult result, HttpSession session,
+            @PathVariable("server_id") Long server_id, 
+            @PathVariable("channel_id")Long channel_id, 
+            Model model) {
         if (result.hasErrors()) {
             Long user_id = (Long) session.getAttribute("uuid");
             User user = userService.findById(user_id);
             model.addAttribute("user", user);
+        	// Server id for assignment ============
+            Server server = serverServ.findById(server_id);
+            model.addAttribute("server", server);
+            // Channel Id for assignment =========
+            Channel channelLoad = channelServ.findById(channel_id);
+            model.addAttribute("channelLoad", channelLoad);
+            // Get all categories for possible assignment ==========
+            List<Category> categories = categoryServ.findAll();
+            model.addAttribute("categories", categories);
             return "editChannel.jsp";
         } else {
             channelServ.save(channel);
@@ -139,7 +161,7 @@ public class ChannelController {
         }
     }
 
-    @DeleteMapping("/channels/{id}")
+    @DeleteMapping("/channels/{id}/delete")
     public String deleteChannel(@PathVariable("id") Long channel_id, HttpSession session) {
         Long id = (Long) session.getAttribute("uuid");
         User user = userService.findById(id);

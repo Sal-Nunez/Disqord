@@ -1,5 +1,6 @@
 package com.cohort.disqord.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,12 +21,24 @@ import com.cohort.disqord.models.User;
 import com.cohort.disqord.models.ajaxSearch.AjaxResponseBody;
 import com.cohort.disqord.models.ajaxSearch.SearchCriteria;
 import com.cohort.disqord.services.ChatRoomNotificationServ;
+import com.cohort.disqord.models.ChatRoom;
+import com.cohort.disqord.models.Server;
+import com.cohort.disqord.models.ServerMember;
+import com.cohort.disqord.models.User;
+import com.cohort.disqord.models.ajaxSearch.AjaxResponseBody;
+import com.cohort.disqord.models.ajaxSearch.SearchCriteria;
+import com.cohort.disqord.services.ChatRoomService;
+import com.cohort.disqord.services.ServerService;
 import com.cohort.disqord.services.UserService;
 
 @RestController
 public class SearchController {
 	@Autowired
 	UserService userServ;
+	@Autowired
+	ChatRoomService chatRoomServ;
+	@Autowired
+	ServerService serverServ;
 	
 	@Autowired
 	ChatRoomNotificationServ chatRoomNotificationServ;
@@ -34,7 +47,7 @@ public class SearchController {
 
 //	Ajax search for friends
 	@PostMapping("/friends/search")
-	public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody SearchCriteria search, Errors errors){
+	public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody SearchCriteria search, Errors errors, HttpSession session){
 		
 		// result is just the jsonified message printed 
 		AjaxResponseBody result = new AjaxResponseBody();
@@ -44,9 +57,15 @@ public class SearchController {
 			result.setMsg(errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(",")));
 			return ResponseEntity.badRequest().body(result);
 		}
-		// Where the magic happens
+		
+		// Where the magic happens - filter out active user
 		List<User> users = userServ.ajaxSearch(search.getInput()+"%");
-		System.out.println(users);
+		ArrayList<User> filteredUsers = new ArrayList<User>();
+		for(User user : users) {
+			if(user.getId() != (long)session.getAttribute("uuid")) {
+				filteredUsers.add(user);
+			}
+		}
 		
 		// None found
 		if(users.isEmpty()) {
@@ -54,7 +73,7 @@ public class SearchController {
 		} else {
 			result.setMsg("success");
 		}
-		result.setResult(users);
+		result.setResult(filteredUsers);
 		
 		return ResponseEntity.ok(result);
 	}
@@ -70,7 +89,101 @@ public class SearchController {
 		result.setResult(friends);
 		return ResponseEntity.ok(result);
 	}
+	
+// Find all friends already in chat room
+	@GetMapping("/friends/{roomId}/members")
+	public ResponseEntity<?> getFriendsInRoomAjax(HttpSession session, @PathVariable("roomId") Long roomId){
+		AjaxResponseBody result = new AjaxResponseBody();
+		
+		ChatRoom chatRoom = chatRoomServ.findById(roomId);
+		List<User> users = chatRoom.getChatRoomMembers();
+		
+		// Filter out active user
+		ArrayList<User> filteredUsers = new ArrayList<User>();
+		for(User user : users) {
+			System.out.println(chatRoom.getUser().getId());
+			if(user.getId() != (long)session.getAttribute("uuid")) {
+				if((long) user.getId() != (long) chatRoom.getUser().getId()) {
+					filteredUsers.add(user);					
+				}
+			}
+		}
+			
+		result.setResult(filteredUsers);			
 
+		return ResponseEntity.ok(result);
+	}
+	
+// Find all friends not in chat room
+	@GetMapping("/friends/{roomId}")
+	public ResponseEntity<?> getFriendsNotInRoomAjax(HttpSession session, @PathVariable("roomId") Long roomId){
+		AjaxResponseBody result = new AjaxResponseBody();
+		
+		User user = userServ.findById((long)session.getAttribute("uuid"));
+		List<User> friends = user.getFriends();
+		
+		ChatRoom chatRoom = chatRoomServ.findById(roomId);
+		List<User> members = chatRoom.getChatRoomMembers();
+		
+		friends.removeAll(members);
+		
+		result.setResult(friends);
+		return ResponseEntity.ok(result);
+	}
+	
+// Find all friends already in server
+	@GetMapping("/friends/servers/{serverId}/serverMembers")
+	public ResponseEntity<?> getFriendsInServerAjax(HttpSession session, @PathVariable("serverId") Long serverId){
+		AjaxResponseBody result = new AjaxResponseBody();
+		
+		Server server = serverServ.findById(serverId);
+		List<ServerMember> serMems = server.getServerMembers();
+		
+		// Change server members to users servermember.servermember
+		ArrayList<User> users = new ArrayList<User>();
+		for(ServerMember sm : serMems) {
+			System.out.println(sm.getServerMember().getFirstName());
+			System.out.println(sm.getServer().getName());
+			users.add(sm.getServerMember());
+		}
+		
+		// Filter out active user
+		ArrayList<User> filteredUsers = new ArrayList<User>();
+		for(User user : users) {
+			if(user.getId() != (long)session.getAttribute("uuid")) {
+				if((long) user.getId() != (long) server.getOwner().getId()) {
+					filteredUsers.add(user);					
+				}
+			}
+		}
+		
+		result.setResult(filteredUsers);			
+		
+		return ResponseEntity.ok(result);
+	}
+	
+// Find all friends not in server
+	@GetMapping("/friends/servers/{serverId}")
+	public ResponseEntity<?> getFriendsNotInServerAjax(HttpSession session, @PathVariable("serverId") Long serverId){
+		AjaxResponseBody result = new AjaxResponseBody();
+		
+		User user = userServ.findById((long)session.getAttribute("uuid"));
+		List<User> friends = user.getFriends();
+		
+		Server server = serverServ.findById(serverId);
+		List<ServerMember> serMems = server.getServerMembers();
+		// Change server members to users servermember.servermember
+		ArrayList<User> users = new ArrayList<User>();
+		for(ServerMember sm : serMems) {
+			users.add(sm.getServerMember());
+		}
+		
+		friends.removeAll(users);
+		
+		result.setResult(friends);
+		return ResponseEntity.ok(result);
+	}
+	
 	
 	@GetMapping("/chat_room_notifications/{chat_room_id}/{user_id}")
 	public ChatRoomNotification chatRoomNotifications(@PathVariable("chat_room_id") Long chat_room_id, @PathVariable("user_id") Long user_id) {

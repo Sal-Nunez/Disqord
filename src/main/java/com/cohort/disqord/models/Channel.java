@@ -45,7 +45,6 @@ public class Channel {
 	
 	private int channelLevel;
 	
-
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdAt;
