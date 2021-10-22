@@ -29,7 +29,7 @@ public class ChannelMessageService {
 		}
 	}
 	
-	public ChannelMessage updateCreate(ChannelMessage channelMessage) {
+	public ChannelMessage save(ChannelMessage channelMessage) {
 		return channelMessageRepo.save(channelMessage);
 	}
 	

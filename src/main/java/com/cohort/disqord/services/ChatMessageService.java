@@ -29,7 +29,7 @@ public class ChatMessageService {
 		}
 	}
 	
-	public ChatMessage updateCreate(ChatMessage chatMessage) {
+	public ChatMessage save(ChatMessage chatMessage) {
 		return chatMessageRepo.save(chatMessage);
 	}
 	

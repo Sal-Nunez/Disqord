@@ -56,7 +56,7 @@
 			        				</li>     		
 	        					</c:forEach>
                     			<li class="icon-item">
-		        					<a href="servers/new" class="dropdown-item bg-success">+ New Server</a>
+		        					<a href="/servers/new" class="dropdown-item bg-success">+ New Server</a>
 		        				</li>
                             </ul>
                         </li>
@@ -69,7 +69,7 @@
                             </a>
                     		<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
   	        					<c:forEach var="chatRoom" items="${ user.chatRooms }">
-	        						<li><a href="/chatRooms/${ chatRoom.id }" class="dropdown-item"><c:out value="${ chatRoom.name }" /></a></li>       
+	        						<li><a href="/chatRooms/${ chatRoom.id }" class="dropdown-item"><c:out value="${ chatRoom.name }" /><span class="ChatRoomListener" id="chatRoomListener${ chatRoom.id }"></span></a></li>       
 	        					</c:forEach>
                         		<li><a href="/chatRooms/new" class="dropdown-item bg-success">New Chat Room</a></li>
                     		</ul>

@@ -26,7 +26,7 @@ public class CategoryService {
 		}
 	}
 	
-	public Category updateCreate(Category category) {
+	public Category save(Category category) {
 		return categoryRepo.save(category);
 	}
 	

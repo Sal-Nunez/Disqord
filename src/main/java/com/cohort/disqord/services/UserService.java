@@ -85,8 +85,7 @@ public class UserService {
         return userRepo.findAll();
     }
     
-	public User updateUser(User user) {
-		
+	public User save(User user) {
 		return userRepo.save(user);
 	}
 	

@@ -29,7 +29,7 @@ public class ServerMemberService {
 		}
 	}
 	
-	public ServerMember updateCreate(ServerMember serverMember) {
+	public ServerMember save(ServerMember serverMember) {
 		return serverMemberRepo.save(serverMember);
 	}
 	

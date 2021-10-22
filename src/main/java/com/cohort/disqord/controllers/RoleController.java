@@ -49,7 +49,7 @@ public class RoleController {
         if (result.hasErrors()) {
             return "newRole.jsp";
         } else {
-            roleServ.updateCreate(role);
+            roleServ.save(role);
             return "redirect:/dashboard";
         }
     }
@@ -81,7 +81,7 @@ public class RoleController {
             model.addAttribute("user", user);
             return "editRole.jsp";
         } else {
-            roleServ.updateCreate(role);
+            roleServ.save(role);
             return "redirect:/dashboard";
         }
     }

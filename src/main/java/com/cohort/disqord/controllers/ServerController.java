@@ -61,7 +61,7 @@ public class ServerController {
 	        	Long id = (Long) session.getAttribute("uuid");
 	        	User user = userService.findById(id);
 	        	server.setOwner(user);
-	        	serverServ.updateCreate(server);
+	        	serverServ.save(server);
 	        	// Save owner as server member
 	        	ServerMember serverMember = new ServerMember();
 	        	serverMember.setServerMember(user);
@@ -98,7 +98,7 @@ public class ServerController {
             model.addAttribute("user", user);
             return "editServer.jsp";
         } else {
-            serverServ.updateCreate(server);
+            serverServ.save(server);
             return "redirect:/dashboard";
         }
     }
