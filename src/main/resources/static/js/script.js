@@ -57,6 +57,7 @@ function tooltiptimemouseout(e) {
 }
 
 function connect(event) {
+    event.preventDefault();
     user_id = document.querySelector('#user_id').value.trim();
     if (document.querySelector("#chat_room_id")) {
         chat_room_id = document.querySelector('#chat_room_id').value.trim();
@@ -71,7 +72,6 @@ function connect(event) {
 
         stompClient.connect({}, onConnected, onError);
     }
-    event.preventDefault();
 }
 
 
@@ -83,13 +83,15 @@ function onConnected() {
 	chatRoomListeners.forEach(e => {
 		let chatRoomListenerId = e.getAttribute("id")
 		let chat_room_notification_id = chatRoomListenerId.substring(16, chatRoomListenerId.length)
+		console.log("Testin here")
 		stompClient.subscribe('/topic/notification/chat_room/' + chat_room_notification_id, onNotificationReceived)	
 	})
 	let channel_notification_id = null;
 	if (channel_notification_id) {
 	stompClient.subscribe('/topic/notification/channel/' + channel_notification_id, onNotificationReceived)		
 	}
-
+	
+	console.log(channel_id)
     if (channel_id) {
         stompClient.subscribe('/topic/public/channel/' + channel_id, onMessageReceived);
     } else if (chat_room_id) {
@@ -107,6 +109,7 @@ function onError(error) {
 
 
 function sendMessage(event) {
+    event.preventDefault();
     var messageContent = messageInput.value.trim();
     if (messageContent && stompClient) {
         var chatMessage = {
@@ -126,12 +129,11 @@ function sendMessage(event) {
 			stompClient.send("/app/sendNotification/chat_room/" + chat_room_id, {}, JSON.stringify(notification))
             stompClient.send("/app/chat.sendMessage/chat_room/" + chat_room_id, {}, JSON.stringify(chatMessage));
         } else if (channel_id) {
-			stompClient.send("/app/sendNotification/channel/" + channel_id, {}, JSON.stringify(notification))
+			/*stompClient.send("/app/sendNotification/channel/" + channel_id, {}, JSON.stringify(notification))*/
             stompClient.send("/app/chat.sendMessage/channel/" + channel_id, {}, JSON.stringify(chatMessage));
         }
         messageInput.value = '';
     }
-    event.preventDefault();
 }
 
 
@@ -198,18 +200,19 @@ function onMessageReceived(payload) {
     textElement.appendChild(messageText);
 
     messageElement.appendChild(textElement);
-
+    console.log(messageElement)
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 function onNotificationReceived(payload){
+	console.log("IN HERE")
 	let receivedNotificaiton = JSON.parse(payload.body);
-	fetch("http://localhost:8080/chat_room_notifications/" + receivedNotificaiton.chat_room_id + "/" + user_id) // fetch returns a promise
+	fetch("/chat_room_notifications/" + receivedNotificaiton.chat_room_id + "/" + user_id) // fetch returns a promise
 	.then(res => res.json()) // this also returns promise
 	.then(data => {
 		if ("http://localhost:8080/chatRooms/" + receivedNotificaiton.chat_room_id == window.location.href){
-			fetch("http://localhost:8080/chat_room_notifications/" + receivedNotificaiton.chat_room_id + "/" + user_id + "/reset")
+			fetch("/chat_room_notifications/" + receivedNotificaiton.chat_room_id + "/" + user_id + "/reset")
 			.then(res => res.json())
 			.then (data1 => {
 			let displayNotification = document.querySelector(`#chatRoomListener${receivedNotificaiton.chat_room_id}`)
@@ -231,11 +234,11 @@ function checkNotifications() {
 		let chatRoomListenerId = e.getAttribute("id")
 		let chat_room_notification_id = chatRoomListenerId.substring(16, chatRoomListenerId.length)
 		user_id = document.querySelector('#user_id').value.trim();
-			fetch("http://localhost:8080/chat_room_notifications/" + chat_room_notification_id + "/" + user_id) // fetch returns a promise
+			fetch("/chat_room_notifications/" + chat_room_notification_id + "/" + user_id) // fetch returns a promise
 			.then(res => res.json()) // this also returns promise
 			.then(data => {
 				if ("http://localhost:8080/chatRooms/" + chat_room_notification_id == window.location.href){
-					fetch("http://localhost:8080/chat_room_notifications/" + chat_room_notification_id + "/" + user_id + "/reset")
+					fetch("/chat_room_notifications/" + chat_room_notification_id + "/" + user_id + "/reset")
 					.then(res => res.json())
 					.then (data1 => {
 					let displayNotification = document.querySelector(`#chatRoomListener${chat_room_notification_id}`)
