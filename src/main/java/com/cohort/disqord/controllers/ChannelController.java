@@ -176,7 +176,8 @@ public class ChannelController {
     
     @MessageMapping("/chat.sendMessage/channel/{id}")
     @SendTo("/topic/public/channel/{id}")
-    public ChannelMessage sendMessage(@Payload ChannelMessage channelMessage, @PathVariable("id") String room) {
+    public ChannelMessage sendMessage(@Payload ChannelMessage channelMessage) {
+    	System.out.println("Channel");
     	channelMessageServ.save(channelMessage);
         return channelMessage;
     }
